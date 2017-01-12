@@ -1,0 +1,17 @@
+# Shibboleth Service Provider properties
+success.redirect={{success_redirect_url}}/idp/authn/External/test?tid=
+failure.redirect={{default_error_url}}
+failure.param.internal=int
+failure.param.invalid=msginv
+failure.param.phaseid=phid
+proxy.rest.url={{proxy_rest_url}}/rest/proxy/sp?tid=
+# -----------------------------------------------
+# NOTE! These values MUST match to what Proxy and IdP are using
+# since these two shared values define the phase ID HMAC calculation!
+phase.id.shared.secret={{phase_id_shared_secret}}
+phase.id.time.interval={{phase_id_time_interval}}
+phase.id.algorithm=HmacSHA256
+phase.id.step.one={{phase_id_step_one}}
+phase.id.step.two={{phase_id_step_two}}
+# Error handler
+discovery.page.base.url={{discovery_page_path}}
