@@ -1,0 +1,33 @@
+*.class
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vagrant/
+target/
+downloads/
+vagrant_deploy/
+*.zip
+*.tar.gz
+id_rsa
+ansible_user*
+script/vagranthostsfile
+
+# Local test certs and keys
+conf/cert/kapa-dev-ca/local-vagrant-ca-dev-cert.srl
+conf/cert/*-apache-dev.crt
+conf/cert/*-apache-dev.csr
+conf/cert/*-apache-dev.key
+conf/shibboleth/sp-*.pem
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
