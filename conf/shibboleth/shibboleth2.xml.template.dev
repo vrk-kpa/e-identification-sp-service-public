@@ -711,6 +711,39 @@
                 </samlp:AuthnRequest>
             </SessionInitiator>
             
+            <SessionInitiator type="SAML2" id="LoginEIDAS1Fi" Location="{{ spconf_location_eidas1 }}/fi"
+                              entityID="{{ spconf_entityid_eidas1 }}">
+                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="LoginEIDAS1FIp" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.998</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginEIDAS1Sv" Location="{{ spconf_location_eidas1 }}/sv"
+                              entityID="{{ spconf_entityid_eidas1 }}">
+                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="LoginEIDAS1SVp" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.998</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginEIDAS1En" Location="{{ spconf_location_eidas1 }}/en"
+                              entityID="{{ spconf_entityid_eidas1 }}">
+                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="LoginEIDAS1ENp" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.998</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
         </Sessions>
 
         <!-- Error pages to display to yourself if something goes horribly wrong. -->

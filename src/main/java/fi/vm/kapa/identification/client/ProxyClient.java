@@ -58,7 +58,7 @@ public class ProxyClient {
     public ProxyMessageDTO updateSession(Map<String, String> sessionData,
                                            String tid, String pid, String logTag) throws InternalErrorException, InvalidRequestException, IOException {
 
-        String proxyCallUrl = proxyURLBase + tid + "&pid=" + pid;
+        String proxyCallUrl = proxyURLBase + "?tid=" + tid + "&pid=" + pid + "&tag=" + logTag;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost postMethod = new HttpPost(proxyCallUrl);

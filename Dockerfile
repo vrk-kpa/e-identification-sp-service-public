@@ -1,6 +1,5 @@
 # Pull base image
 FROM dev-docker-registry.kapa.ware.fi/e-identification-tomcat-apache2-shibd-sp-base-image
-COPY License.info /License.info
 COPY target/site /site
 
 COPY conf /tmp/conf

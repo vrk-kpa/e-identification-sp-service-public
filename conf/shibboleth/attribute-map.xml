@@ -29,4 +29,8 @@
     <Attribute name="http://mss.ficom.fi/TS102204/v1.0.0/PersonID#givenName" id="givenName"/>
     <Attribute name="urn:oid:0.9.2342.19200300.100.1.41" id="mobileNumber"/>
     <Attribute name="http://mss.ficom.fi/TS102204/v1.0.0/PersonID#surName" id="sn"/>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" id="eidasPersonIdentifier"/>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" id="eidasFamilyName"/>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" id="eidasGivenName"/>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" id="eidasDateOfBirth"/>
 </Attributes>

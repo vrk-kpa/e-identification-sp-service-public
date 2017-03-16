@@ -56,18 +56,18 @@ public class ServiceProviderResource {
                                         @QueryParam("pid") String pid,
                                         @QueryParam("tag") String logTag) {
 
-        String redirectURIStr = serviceProvider.processSAMLResponse(headers.getRequestHeaders(),
-                tid, pid, logTag);
-
-        URI redirectURI = null;
         try {
-            redirectURI = new URI(redirectURIStr);
+            String redirectURIStr = serviceProvider.processSAMLResponse(headers.getRequestHeaders(),
+                    tid, pid, logTag);
+            URI redirectURI = new URI(redirectURIStr);
+            return Response.status(Response.Status.FOUND).location(redirectURI).build();
         } catch (URISyntaxException e) {
-            logger.warn("Invalid SP redirect URI {}", redirectURIStr);
+            logger.warn("Invalid SP redirect URI {}", e.getInput());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        } catch (Exception e) {
+            logger.warn("Something went wrong: {}", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
-
-        return Response.status(Response.Status.FOUND).location(redirectURI).build();
     }
 }
 

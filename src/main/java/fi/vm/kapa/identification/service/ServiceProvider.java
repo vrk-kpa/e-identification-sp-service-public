@@ -77,13 +77,15 @@ public class ServiceProvider {
      * These values are fetched from shibboleth2.xml and these must be
      * placed in the same order as the enum in Identifier.Types.
      */
-    private Identifier.Types[] identifierTypePriority = {SATU, HETU, KID, EPPN, UID};
-    private Map<Identifier.Types,String> enumToNameMap = ImmutableMap.of(
-            SATU, "AJP_satu",
-            HETU, "AJP_hetu",
-            KID, "AJP_tfiKid",
-            EPPN, "AJP_eppn",
-            UID, "AJP_uid");
+    private static final Identifier.Types[] identifierTypePriority = {SATU, HETU, KID, EPPN, UID, EIDAS_ID};
+    private Map<Identifier.Types,String> enumToNameMap = ImmutableMap.<Identifier.Types,String>builder()
+            .put(SATU, "AJP_satu")
+            .put(HETU, "AJP_hetu")
+            .put(KID, "AJP_tfiKid")
+            .put(EPPN, "AJP_eppn")
+            .put(UID, "AJP_uid")
+            .put(EIDAS_ID, "AJP_eidasPersonIdentifier")
+            .build();
 
     @Autowired
     public ServiceProvider(ProxyClient proxyClient,
@@ -146,7 +148,7 @@ public class ServiceProvider {
                     String pidFromProxy = message.getPhaseId();
                     String tidFromProxy = message.getTokenId();
 
-                    String idpCallUrl = successRedirectBase + tidFromProxy + "&pid=" + pidFromProxy + "&tag=" + logTag;
+                    String idpCallUrl = successRedirectBase + "?tid=" + tidFromProxy + "&pid=" + pidFromProxy + "&tag=" + logTag;
                     logger.debug("Redirect URL to IdP: " + idpCallUrl);
 
                     redirectUrl = idpCallUrl;
