@@ -5,6 +5,11 @@ failure.param.internal=int
 failure.param.invalid=msginv
 failure.param.phaseid=phid
 proxy.rest.url={{proxy_rest_url}}/rest/proxy/sp
+
+# http client configuration:
+http.client.max_conn_per_route={{spconf_http_client_max_conn_per_route | default('1024')}}
+http.pool.max_total={{spconf_http_pool_max_total | default('1024')}}
+http.pool.default_max_per_route={{spconf_http_pool_default_max_per_route | default('1024')}}
 # -----------------------------------------------
 # NOTE! These values MUST match to what Proxy and IdP are using
 # since these two shared values define the phase ID HMAC calculation!

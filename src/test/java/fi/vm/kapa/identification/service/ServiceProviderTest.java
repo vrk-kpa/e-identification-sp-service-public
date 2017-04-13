@@ -22,141 +22,116 @@
  */
 package fi.vm.kapa.identification.service;
 
+import fi.vm.kapa.identification.client.ProxyClient;
+import fi.vm.kapa.identification.dto.ProxyMessageDTO;
+import fi.vm.kapa.identification.exception.InternalErrorException;
+import fi.vm.kapa.identification.exception.InvalidIdentifierException;
+import fi.vm.kapa.identification.exception.InvalidRequestException;
+import org.junit.Before;
 import org.junit.Test;
 
-import fi.vm.kapa.identification.type.Identifier;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
+import java.net.URI;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyMap;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class ServiceProviderTest {
 
+    @Mock
+    ProxyClient proxyClient;
+    @Mock
+    PhaseIdService phaseIdInitSession;
+    @Mock
+    PhaseIdHistoryService historyService;
+    @Mock
+    UrlService urlService;
+    @Mock
+    SessionDataExtractor sessionDataExtractor;
+
+    @Autowired
+    @InjectMocks
+    ServiceProvider serviceProvider;
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
+
     @Test
-    public void checkAndParseIdentifierAndDataReturnsFalseWhenNoIdentifierFoundInSessionData() throws Exception {
-        ServiceProvider sp = new ServiceProvider(null, null);
+    public void updateSessionAndGetRedirectUriWithReplyAttackReturnsPhaseIdErrorUrl() throws Exception {
+        when(historyService.areIdsConsumed(anyString(), anyString())).thenReturn(true);
+        when(urlService.createPhaseIdErrorURL(anyString())).thenReturn(new URI("http://phase_id.error"));
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        assertEquals("http://phase_id.error", uri.toString());
+        verify(urlService).createPhaseIdErrorURL("TAG");
+    }
+
+    @Test
+    public void updateSessionAndGetRedirectUriReturnsRequestErrorUriWhenSessionExtractorThrows() throws Exception {
+        when(historyService.areIdsConsumed(anyString(), anyString())).thenReturn(false);
+        when(phaseIdInitSession.validateTidAndPid(anyString(), anyString())).thenReturn(true);
+        when(phaseIdInitSession.verifyPhaseId(anyString(), anyString(), anyString())).thenReturn(true);
+        when(sessionDataExtractor.extractSessionData(any())).thenThrow(new InvalidIdentifierException());
+        when(urlService.createRequestErrorURL(anyString())).thenReturn(new URI("http://request.error"));
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        assertEquals("http://request.error", uri.toString());
+        verify(urlService).createRequestErrorURL("TAG");
+    }
+
+    @Test
+    public void updateSessionAndGetRedirectUriReturnsRequestErrorUriWhenUpdateSessionThrowsInternalError() throws Exception {
+        when(historyService.areIdsConsumed(anyString(), anyString())).thenReturn(false);
+        when(phaseIdInitSession.validateTidAndPid(anyString(), anyString())).thenReturn(true);
+        when(phaseIdInitSession.verifyPhaseId(anyString(), anyString(), anyString())).thenReturn(true);
+        when(sessionDataExtractor.extractSessionData(any())).thenReturn(Collections.emptyMap());
+        when(urlService.createInternalErrorURL(anyString())).thenReturn(new URI("http://internal.error"));
+        when(proxyClient.updateSession(anyMap(), anyString(), anyString(), anyString())).thenThrow(new InternalErrorException());
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        assertEquals("http://internal.error", uri.toString());
+        verify(urlService).createInternalErrorURL("TAG");
+    }
+
+    @Test
+    public void updateSessionAndGetRedirectUriReturnsRequestErrorUriWhenUpdateSessionThrowsInvalidRequest() throws Exception {
+        when(historyService.areIdsConsumed(anyString(), anyString())).thenReturn(false);
+        when(phaseIdInitSession.validateTidAndPid(anyString(), anyString())).thenReturn(true);
+        when(phaseIdInitSession.verifyPhaseId(anyString(), anyString(), anyString())).thenReturn(true);
+        when(sessionDataExtractor.extractSessionData(any())).thenReturn(Collections.emptyMap());
+        when(urlService.createRequestErrorURL(anyString())).thenReturn(new URI("http://request.error"));
+        when(proxyClient.updateSession(anyMap(), anyString(), anyString(), anyString())).thenThrow(new InvalidRequestException());
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        assertEquals("http://request.error", uri.toString());
+        verify(urlService).createRequestErrorURL("TAG");
+    }
+
+    @Test
+    public void updateSessionAndGetRedirectUri() throws Exception {
+        when(historyService.areIdsConsumed(anyString(), anyString())).thenReturn(false);
+        when(phaseIdInitSession.validateTidAndPid(anyString(), anyString())).thenReturn(true);
+        when(phaseIdInitSession.verifyPhaseId(anyString(), anyString(), anyString())).thenReturn(true);
         HashMap<String,String> sessionData = new HashMap<>();
-        sessionData.put("AJP_notIdentifier", "SHOULD_NOT_BE_ACCEPTED_AS_IDENTIFIER");
-        assertFalse(sp.isValidIdentifierType(sp.getIdentifierType(sessionData)));
+        when(sessionDataExtractor.extractSessionData(any())).thenReturn(sessionData);
+        ProxyMessageDTO t = new ProxyMessageDTO();
+        t.setTokenId("REPLY_TOKEN_ID");
+        t.setPhaseId("REPLY_PHASE_ID");
+        when(proxyClient.updateSession(anyMap(), anyString(), anyString(), anyString())).thenReturn(t);
+        when(urlService.createSuccessURL(anyString(), anyString(), anyString())).thenReturn(new URI("http://success.com"));
+        //
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        assertEquals("http://success.com", uri.toString());
+        verify(urlService).createSuccessURL("REPLY_TOKEN_ID", "REPLY_PHASE_ID", "TAG");
     }
 
-    @Test
-    public void checkAndParseIdentifierAndDataReturnsTrueWhenHetuIdentifierFoundInSessionData() throws Exception {
-        ServiceProvider sp = new ServiceProvider(null, null);
-        HashMap<String,String> sessionData = new HashMap<>();
-        sessionData.put("AJP_hetu", "TEST_HETU");
-        assertTrue(sp.isValidIdentifierType(sp.getIdentifierType(sessionData)));
-    }
 
-    @Test
-    public void getIdentifierTypeReturnsHetuWhenHetuAndUidIdentifierFoundInSessionData() throws Exception {
-        ServiceProvider sp = new ServiceProvider(null, null);
-        HashMap<String,String> sessionData = new HashMap<>();
-        sessionData.put("AJP_hetu", "TEST_HETU");
-        sessionData.put("AJP_uid", "TEST_UID");
-        assertTrue(sp.getIdentifierType(sessionData) == Identifier.Types.HETU);
-    }
-
-    @Test
-    public void getIdentifierTypeReturnsSatuForMobileIdpWhenHetuAndSatuIdentifierFoundInSessionData() throws Exception {
-        ServiceProvider sp = new ServiceProvider(null, null);
-        HashMap<String,String> sessionData = new HashMap<>();
-        sessionData.put("AJP_hetu", "TEST_HETU");
-        sessionData.put("AJP_satu", "TEST_SATU");
-        assertTrue(sp.getIdentifierType(sessionData) == Identifier.Types.SATU);
-    }
-
-    @Test
-    public void checkAndParseIdentifierAndDataReturnsTrueWhenSatuIdentifierFoundInSessionData() throws Exception {
-        ServiceProvider sp = new ServiceProvider(null, null);
-        HashMap<String,String> sessionData = new HashMap<>();
-        sessionData.put("AJP_satu", "TEST_SATU");
-        assertTrue(sp.isValidIdentifierType(sp.getIdentifierType(sessionData)));
-    }
-
-    @Test
-    public void checkAndParseIdentifierAndDataReturnsTrueWhenKidIdentifierFoundInSessionData() throws Exception {
-        ServiceProvider sp = new ServiceProvider(null, null);
-        HashMap<String,String> sessionData = new HashMap<>();
-        sessionData.put("AJP_tfiKid", "TEST_KID");
-        assertTrue(sp.isValidIdentifierType(sp.getIdentifierType(sessionData)));
-    }
-
-    @Test
-    public void checkAndParseIdentifierAndDataReturnsTrueWhenEppnIdentifierFoundInSessionData() throws Exception {
-        ServiceProvider sp = new ServiceProvider(null, null);
-        HashMap<String,String> sessionData = new HashMap<>();
-        sessionData.put("AJP_eppn", "TEST_EPPN");
-        assertTrue(sp.isValidIdentifierType(sp.getIdentifierType(sessionData)));
-    }
-
-    @Test
-    public void extractSessionDataPicksRemoteUser() throws Exception {
-        MultivaluedMap<String,String> headers = new MultivaluedHashMap<>();
-        headers.putSingle("AJP_hetu", "TEST_HETU");
-        headers.putSingle("REMOTE_USER", "TEST_REMOTE_USER");
-        ServiceProvider sp = new ServiceProvider(null, null);
-        Map<String,String> sessionData = sp.extractSessionData(headers);
-        assertThat(sessionData.get("AJP_hetu"), is("TEST_HETU"));
-        assertThat(sessionData.get("REMOTE_USER"), is("TEST_REMOTE_USER"));
-    }
-
-    @Test
-    public void extractSessionDataPicksAJPHeaders() throws Exception {
-        MultivaluedMap<String,String> headers = new MultivaluedHashMap<>();
-        headers.putSingle("AJP_uid", "TEST_UID");
-        headers.putSingle("AJP_hetu", "TEST_HETU");
-        headers.putSingle("AJP_satu", "TEST_SATU");
-        headers.putSingle("AJP_eppn", "TEST_EPPN");
-        headers.putSingle("AJP_cn", "TEST_COMMON_NAME");
-        headers.putSingle("AJP_displayName", "TEST_DISPLAY_NAME");
-        headers.putSingle("AJP_givenName", "TEST_GIVEN_NAME");
-        headers.putSingle("AJP_sn", "TEST_SURNAME");
-        headers.putSingle("AJP_authenticationProvider", "TEST_AUTH_PROVIDER");
-        headers.putSingle("AJP_tfiKid", "TEST_KID");
-        headers.putSingle("AJP_tfiPersonName", "TEST_TFI_PERSON_NAME");
-        headers.putSingle("AJP_tfiVersion", "TEST_TFI_VERSION");
-        headers.putSingle("AJP_tfiIdRef", "TEST_TFI_ID_REF");
-        headers.putSingle("AJP_tfiNameRef", "TEST_TFI_NAME_REF");
-        headers.putSingle("AJP_tfiCustName", "TEST_TFI_CUST_NAME");
-        headers.putSingle("AJP_tfiCustId", "TEST_TFI_CUST_ID");
-        headers.putSingle("AJP_tfiIdType", "TEST_TFI_ID_TYPE");
-        headers.putSingle("AJP_mobileNumber", "TEST_MOBILE_NUMBER");
-        ServiceProvider sp = new ServiceProvider(null, null);
-        Map<String,String> sessionData = sp.extractSessionData(headers);
-        assertThat(sessionData.get("AJP_uid"), is("TEST_UID"));
-        assertThat(sessionData.get("AJP_hetu"), is("TEST_HETU"));
-        assertThat(sessionData.get("AJP_satu"), is("TEST_SATU"));
-        assertThat(sessionData.get("AJP_eppn"), is("TEST_EPPN"));
-        assertThat(sessionData.get("AJP_cn"), is("TEST_COMMON_NAME"));
-        assertThat(sessionData.get("AJP_displayName"), is("TEST_DISPLAY_NAME"));
-        assertThat(sessionData.get("AJP_givenName"), is("TEST_GIVEN_NAME"));
-        assertThat(sessionData.get("AJP_sn"), is("TEST_SURNAME"));
-        assertThat(sessionData.get("AJP_authenticationProvider"), is("TEST_AUTH_PROVIDER"));
-        assertThat(sessionData.get("AJP_tfiKid"), is("TEST_KID"));
-        assertThat(sessionData.get("AJP_tfiPersonName"), is("TEST_TFI_PERSON_NAME"));
-        assertThat(sessionData.get("AJP_tfiVersion"), is("TEST_TFI_VERSION"));
-        assertThat(sessionData.get("AJP_tfiIdRef"), is("TEST_TFI_ID_REF"));
-        assertThat(sessionData.get("AJP_tfiNameRef"), is("TEST_TFI_NAME_REF"));
-        assertThat(sessionData.get("AJP_tfiCustName"), is("TEST_TFI_CUST_NAME"));
-        assertThat(sessionData.get("AJP_tfiCustId"), is("TEST_TFI_CUST_ID"));
-        assertThat(sessionData.get("AJP_tfiIdType"), is("TEST_TFI_ID_TYPE"));
-        assertThat(sessionData.get("AJP_mobileNumber"), is("TEST_MOBILE_NUMBER"));
-    }
-
-    @Test
-    public void extractSessionDataDoesNotMapsNonAJPHeaders() throws Exception {
-        MultivaluedMap<String,String> headers = new MultivaluedHashMap<>();
-        headers.putSingle("AJP_satu", "TEST_SATU");
-        headers.putSingle("ANY_satu", "FAKE_SATU");
-        ServiceProvider sp = new ServiceProvider(null, null);
-        Map<String,String> sessionData = sp.extractSessionData(headers);
-        assertThat(sessionData.get("AJP_satu"), is("TEST_SATU"));
-        assertThat(sessionData.get("ANY_satu"), is(nullValue()));
-    }
 }

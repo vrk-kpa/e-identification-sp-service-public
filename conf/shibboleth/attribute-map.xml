@@ -12,6 +12,7 @@
     <Attribute name="urn:oid:2.5.4.42" id="givenName"/>
     <Attribute name="urn:oid:2.5.4.4" id="sn"/>
     <Attribute name="urn:oid:1.2.246.22" id="satu"/>
+    <Attribute name="urn:oid:1.2.246.517.3002.111.4" id="issuerCN"/>
     <Attribute name="urn:oid:1.3.6.1.4.1.31350.1.11" id="authenticationProvider"/>
     <Attribute name="tfi.kid" id="tfiKid"/>
     <Attribute name="tfi.personname" id="tfiPersonName"/>

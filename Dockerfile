@@ -9,6 +9,8 @@ WORKDIR /opt/service-provider
 RUN mkdir -p /etc/shibboleth/idp-metadata /data00/templates/store /usr/share/tomcat/conf/Catalina/localhost/
 RUN jar -xvf kapa-service-provider.war
 RUN cp /tmp/conf/shibboleth/attribute-map.xml /etc/shibboleth/attribute-map.xml  && \
+    cp /tmp/conf/shibboleth/bindingTemplateEN.html /etc/shibboleth/bindingTemplateEN.html && \
+    cp /tmp/conf/shibboleth/bindingTemplateSV.html /etc/shibboleth/bindingTemplateSV.html && \    
     cp /tmp/conf/tomcat/sp.xml /usr/share/tomcat/conf/Catalina/localhost/ && \
     cp /tmp/conf/tomcat/server.xml /usr/share/tomcat/conf/  && \
     cp /tmp/conf/tomcat/logging.properties /usr/share/tomcat/conf/logging.properties && \

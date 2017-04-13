@@ -22,7 +22,7 @@
  */
 package fi.vm.kapa.identification.rest;
 
-import fi.vm.kapa.identification.service.ErrorService;
+import fi.vm.kapa.identification.service.UrlService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +39,16 @@ public class ErrorResource {
 
     private static final Logger logger = LoggerFactory.getLogger(ErrorResource.class);
 
-    private ErrorService errorService;
+    private UrlService urlService;
 
     @Autowired
-    public ErrorResource(ErrorService errorService) {
-        this.errorService = errorService;
+    public ErrorResource(UrlService urlService) {
+        this.urlService = urlService;
     }
 
     @GET
     public Response getErrorLocation() {
-        URI redirectURI = errorService.generateErrorURI();
+        URI redirectURI = urlService.generateErrorURI();
         return Response.status(Response.Status.FOUND).location(redirectURI).build();
     }
 }

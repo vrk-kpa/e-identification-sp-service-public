@@ -35,7 +35,8 @@
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginKatsoOTPSv" Location="{{ spconf_location_katso_otp }}/sv"
-                              entityID="{{ spconf_entityid_katso_pwd }}" forceAuthn="true">
+                              entityID="{{ spconf_entityid_katso_pwd }}" forceAuthn="true" 
+                              template="bindingTemplateSV.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="katsootp_sv" Version="2.0"
                                     IssueInstant="2012-01-01T00:00:00Z">
                     <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
@@ -45,7 +46,8 @@
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginKatsoOTPEn" Location="{{ spconf_location_katso_otp }}/en"
-                              entityID="{{ spconf_entityid_katso_pwd }}" forceAuthn="true">
+                              entityID="{{ spconf_entityid_katso_pwd }}" forceAuthn="true" 
+                              template="bindingTemplateEN.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="katsootp_en" Version="2.0"
                                     IssueInstant="2012-01-01T00:00:00Z">
                     <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
@@ -65,7 +67,8 @@
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginKatsoPWDSv" Location="{{spconf_location_katso_pwd}}/sv"
-                              entityID="{{ spconf_entityid_katso_pwd }}" forceAuthn="true">
+                              entityID="{{ spconf_entityid_katso_pwd }}" forceAuthn="true" 
+                              template="bindingTemplateSV.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="katsopwd_sv" Version="2.0"
                                     IssueInstant="2012-01-01T00:00:00Z">
                     <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
@@ -75,7 +78,8 @@
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginKatsoPWDEn" Location="{{spconf_location_katso_pwd}}/en"
-                              entityID="{{ spconf_entityid_katso_pwd }}" forceAuthn="true">
+                              entityID="{{ spconf_entityid_katso_pwd }}" forceAuthn="true" 
+                              template="bindingTemplateEN.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="katsopwd_en" Version="2.0"
                                     IssueInstant="2012-01-01T00:00:00Z">
                     <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">

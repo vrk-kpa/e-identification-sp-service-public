@@ -26,20 +26,31 @@ import com.google.gson.Gson;
 import fi.vm.kapa.identification.dto.ProxyMessageDTO;
 import fi.vm.kapa.identification.exception.InternalErrorException;
 import fi.vm.kapa.identification.exception.InvalidRequestException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.ws.rs.core.UriBuilder;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.Map;
 
 @Component
@@ -49,44 +60,71 @@ public class ProxyClient {
 
     private static final String HEADER_TYPE = "Content-Type";
     private static final String HEADER_VALUE = "application/json";
-    public static final int HTTP_OK = 200;
-    public static final int HTTP_INTERNAL_ERROR = 500;
 
-    @Value("${proxy.rest.url}")
-    private String proxyURLBase;
+    private final String proxyURLBase;
 
-    public ProxyMessageDTO updateSession(Map<String, String> sessionData,
-                                           String tid, String pid, String logTag) throws InternalErrorException, InvalidRequestException, IOException {
+    private final CloseableHttpClient httpClient;
 
-        String proxyCallUrl = proxyURLBase + "?tid=" + tid + "&pid=" + pid + "&tag=" + logTag;
+    public ProxyClient(String proxyURLBase) {
+        this(proxyURLBase, HttpClients.createDefault());
+    }
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPost postMethod = new HttpPost(proxyCallUrl);
-        postMethod.setHeader(HEADER_TYPE, HEADER_VALUE);
+    @Autowired
+    public ProxyClient(@Value("${proxy.rest.url}") String proxyURLBase, CloseableHttpClient client) {
+        logger.debug("ProxyClient constructed with url {} and client {}", proxyURLBase, client);
+        this.proxyURLBase = proxyURLBase;
+        this.httpClient = client;
+    }
+
+    public ProxyMessageDTO updateSession(Map<String,String> sessionData,
+                                         String tid, String pid, String logTag) throws InternalErrorException, InvalidRequestException, IOException  {
 
         Gson gson = new Gson();
-        postMethod.setEntity(new StringEntity(gson.toJson(sessionData)));
+
+        URI proxyUpdateUri = UriBuilder.fromUri(proxyURLBase)
+                .queryParam("tid", tid)
+                .queryParam("pid", pid)
+                .queryParam("tag", logTag)
+                .build();
+        HttpUriRequest postMethod = RequestBuilder.post()
+                .setUri(proxyUpdateUri)
+                .setHeader(HEADER_TYPE, HEADER_VALUE)
+                .setEntity(new StringEntity(gson.toJson(sessionData)))
+                .build();
         HttpContext context = HttpClientContext.create();
 
-        CloseableHttpResponse restResponse = httpClient.execute(postMethod, context);
+        ResponseHandler<ProxyMessageDTO> rh = response -> {
+            StatusLine statusLine = response.getStatusLine();
+            HttpEntity entity = response.getEntity();
+            if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
+                throw new HttpResponseException(
+                        statusLine.getStatusCode(),
+                        statusLine.getReasonPhrase());
+            }
+            if (entity == null) {
+                throw new ClientProtocolException("Response contains no content");
+            }
+            ContentType contentType = ContentType.getOrDefault(entity);
+            BufferedReader in =
+                    new BufferedReader(new InputStreamReader(entity.getContent(), contentType.getCharset()));
+            try {
+                return gson.fromJson(in, ProxyMessageDTO.class);
+            } finally {
+                in.close();
+            }
+        };
 
-        ProxyMessageDTO messageDTO = null;
 
-        int statusCode = restResponse.getStatusLine().getStatusCode();
-        if (statusCode == HTTP_INTERNAL_ERROR) {
-            logger.warn("<<{}>> Proxy encountered internal fault", logTag);
-            throw new InternalErrorException();
-        } else {
-            if (statusCode == HTTP_OK) {
-                messageDTO = gson.fromJson(
-                        EntityUtils.toString(restResponse.getEntity()), ProxyMessageDTO.class);
+        try {
+            return httpClient.execute(postMethod, rh, context);
+        } catch (HttpResponseException e) {
+            logger.warn("Got status code {} from proxy", e.getStatusCode(), e);
+            if (e.getStatusCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+                throw new InternalErrorException();
             } else {
-                logger.warn("<<{}>> Failed to build session, Proxy responded with HTTP {}", logTag, statusCode);
                 throw new InvalidRequestException();
-
             }
         }
-        restResponse.close();
-        return messageDTO;
+
     }
 }

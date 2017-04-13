@@ -20,32 +20,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package fi.vm.kapa.identification.service;
+package fi.vm.kapa.identification.config;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.test.util.ReflectionTestUtils;
+import fi.vm.kapa.identification.service.PhaseIdHistoryService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import java.net.URI;
+@Configuration
+public class PhaseIdHistoryServiceConfiguration {
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-public class ErrorServiceTest {
-
-    private ErrorService errorService;
-
-    @Before
-    public void init() {
-        errorService = new ErrorService();
-        ReflectionTestUtils.setField(errorService, "discoveryPageBaseUrl", "http://test.disco.page");
-    }
-
-    @Test
-    public void testGenerateErrorUrl() {
-        URI errorUri = errorService.generateErrorURI();
-        assertNotNull(errorUri);
-        assertEquals("http://test.disco.page?msg=cancel",
-                errorUri.toString());
+    @Bean
+    public PhaseIdHistoryService providePhaseIdHistory() {
+        return PhaseIdHistoryService.getInstance();
     }
 }

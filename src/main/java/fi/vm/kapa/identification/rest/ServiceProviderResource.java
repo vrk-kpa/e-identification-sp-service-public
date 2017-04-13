@@ -57,10 +57,9 @@ public class ServiceProviderResource {
                                         @QueryParam("tag") String logTag) {
 
         try {
-            String redirectURIStr = serviceProvider.processSAMLResponse(headers.getRequestHeaders(),
+            URI redirectUri = serviceProvider.updateSessionAndGetRedirectUri(headers.getRequestHeaders(),
                     tid, pid, logTag);
-            URI redirectURI = new URI(redirectURIStr);
-            return Response.status(Response.Status.FOUND).location(redirectURI).build();
+            return Response.status(Response.Status.FOUND).location(redirectUri).build();
         } catch (URISyntaxException e) {
             logger.warn("Invalid SP redirect URI {}", e.getInput());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

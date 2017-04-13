@@ -20,37 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package fi.vm.kapa.identification.rest;
+package fi.vm.kapa.identification.exception;
 
-import fi.vm.kapa.identification.service.UrlService;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.ws.rs.core.Response;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-public class ErrorResourceTest {
-
-    private ErrorResource resource;
-
-    @Before
-    public void init() throws URISyntaxException {
-        UrlService urlService = mock(UrlService.class);
-        when(urlService.generateErrorURI()).thenReturn(new URI("http://test.error.fi"));
-        resource = new ErrorResource(urlService);
-    }
-
-    @Test
-    public void testGetErrorLocation() {
-        Response response = resource.getErrorLocation();
-        assertNotNull(response);
-        assertEquals(Response.Status.FOUND.getStatusCode(), response.getStatus());
-        assertEquals("http://test.error.fi", response.getLocation().toString());
-    }
+public class InvalidIdentifierException extends Exception {
 }

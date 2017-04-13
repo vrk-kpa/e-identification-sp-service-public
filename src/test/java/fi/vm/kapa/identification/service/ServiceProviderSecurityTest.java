@@ -28,7 +28,7 @@ import org.junit.Test;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -49,10 +49,8 @@ public class ServiceProviderSecurityTest {
         MultivaluedMap<String,String> headers = new MultivaluedHashMap<>();
         headers.putSingle("AJP_satu", "TEST_SATU");
         headers.putSingle(Identifier.typeKey, "BUSTED_BY_HEADER_INJECTION");
-        ServiceProvider sp = new ServiceProvider(null, null);
-        HashMap<String,String> sessionData = new HashMap<>();
-        sp.extractSessionData(headers);
-        sp.isValidIdentifierType(sp.getIdentifierType(sessionData));
+        SessionDataExtractor extractor = new SessionDataExtractor();
+        Map<String,String> sessionData =  extractor.extractSessionData(headers);
         assertThat(sessionData.get(Identifier.typeKey), is(not("BUSTED_BY_HEADER_INJECTION")));
     }
 }

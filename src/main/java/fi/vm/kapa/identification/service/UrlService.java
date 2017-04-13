@@ -35,12 +35,28 @@ import java.net.URISyntaxException;
  * Constructs proper URI to be used when serivce provider encounters an authentication error.
  */
 @Service
-public class ErrorService {
+public class UrlService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ErrorService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UrlService.class);
 
     @Value("${discovery.page.base.url}")
     private String discoveryPageBaseUrl;
+    @Value("${failure.redirect}")
+    private String failureRedirectBase;
+    @Value("${success.redirect}")
+    private String successRedirectBase;
+
+    /* These strings define the error redirect URL query parameter that can be
+     * used to guide the error page, the value matches the property langId that
+     * fetches the correct language variant for the error message
+     */
+    @Value("${failure.param.internal}")
+    private String errorParamInternal;
+    @Value("${failure.param.phaseid}")
+    private String errorParamPhaseId;
+    @Value("${failure.param.invalid}")
+    private String errorParamMessageInvalid;
+
 
     public URI generateErrorURI() {
 
@@ -54,4 +70,35 @@ public class ErrorService {
         }
         return redirectURI;
     }
+
+
+    public URI createSuccessURL(String tid, String pid, String logTag) throws URISyntaxException {
+        return new URIBuilder(successRedirectBase)
+                .addParameter("tid", tid)
+                .addParameter("pid", pid)
+                .addParameter("tag", logTag)
+                .build();
+    }
+
+    public URI createInternalErrorURL(String logTag) throws URISyntaxException {
+        return new URIBuilder(failureRedirectBase)
+                .addParameter("t", logTag)
+                .addParameter("m", errorParamInternal)
+                .build();
+    }
+
+    public URI createRequestErrorURL(String logTag) throws URISyntaxException {
+        return new URIBuilder(failureRedirectBase)
+                .addParameter("t", logTag)
+                .addParameter("m", errorParamMessageInvalid)
+                .build();
+    }
+
+    public URI createPhaseIdErrorURL(String logTag) throws URISyntaxException {
+        return new URIBuilder(failureRedirectBase)
+                .addParameter("t", logTag)
+                .addParameter("m", errorParamPhaseId)
+                .build();
+    }
+
 }
