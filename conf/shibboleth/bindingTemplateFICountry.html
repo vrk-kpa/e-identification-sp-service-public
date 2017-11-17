@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fi" class="js">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Suomi.fi-tunnistaminen</title>
+    <link rel="stylesheet" href="/resources/stylesheets/style.css"/>
+    <link rel="shortcut icon" href="/resources/img/favicon.png" sizes="160x160" type="image/png"/>
+    <script src="/resources/js/sp-country-form-post.js"></script>
+</head>
+<body id="identification-service">
+<noscript>
+    <div style="text-align: center;">
+        Toimiakseen oikein, tämä sivusto vaatii että selaimen JavaScript-ominaisuus on käytössä.
+    </div>
+    <div style="text-align: center;">
+        För att denna webbplats ska fungera korrekt krävs att webbläsarens JavaScript-egenskap är i användning.
+    </div>
+    <div style="text-align: center;">
+        JavaScript needs to be enabled in the browser, in order for these web-pages to work properly.
+    </div>
+</noscript>
+<div id="main-container">
+    <header id="page-header" role="banner">
+        <div id="header-content" class="container">
+            <h1 id="suomi.fi-tunnistaminen" class="site-logo">
+                <img src="/resources/img/tunnistaminen_logo_fi.svg" data-i18n="header__logo"
+                     alt="Suomi.fi-tunnistaminen"/>
+                <span class="visuallyhidden" data-i18n="header__suomifi-tunnistaminen">Suomi.fi-tunnistus</span>
+            </h1>
+        </div>
+    </header>
+    <main id="main" role="main" name="main">
+        <div class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 identification-info">
+                        <h3>Valitse maa</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+
+                        <form method="POST" action="<shibmlp action/>">
+
+                            <shibmlpif TARGET>
+                                <input type="hidden" name="TARGET" value="<shibmlp TARGET/>"/>
+                            </shibmlpif>
+                            <shibmlpif RelayState>
+                                <input type="hidden" name="RelayState" value="<shibmlp RelayState/>"/>
+                            </shibmlpif>
+                            <shibmlpif SAMLRequest>
+                                <input type="hidden" name="SAMLRequest" value="<shibmlp SAMLRequest/>"/>
+                            </shibmlpif>
+                            <shibmlpif SAMLResponse>
+                                <input type="hidden" name="SAMLResponse" value="<shibmlp SAMLResponse/>"/>
+                            </shibmlpif>
+                            <shibmlpif SAMLart>
+                                <input type="hidden" name="SAMLart" value="<shibmlp SAMLart/>"/>
+                            </shibmlpif>
+                            <shibmlpif SigAlg>
+                                <input type="hidden" name="SigAlg" value="<shibmlp SigAlg/>"/>
+                            </shibmlpif>
+                            <shibmlpif Signature>
+                                <input type="hidden" name="Signature" value="<shibmlp Signature/>"/>
+                            </shibmlpif>
+                            <shibmlpif KeyInfo>
+                                <input type="hidden" name="KeyInfo" value="<shibmlp KeyInfo/>"/>
+                            </shibmlpif>
+                            <input type="hidden" id="country" name="country" value="CX"/>
+
+
+                            <div class="col-xs-12">
+                                <ul id="sign-in-option-list" class="sign-in-option-list">
+                                    <li>
+                                         <button type="submit" id="CXbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/se.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__sverige">Sweden</span>
+                                         </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="BEbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/be.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Belgium</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="ATbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/at.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Austria</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="BGbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/bg.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Bulgaria</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="CZbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/cz.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Czech Republic</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="CYbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/cy.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Cyprus</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="DEbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/de.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Germany</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="DKbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/dk.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Denmark</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="EEbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/ee.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Estonia</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="ESbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/es.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Spain</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="FRbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/fr.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">France</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="GBbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/gb.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">United Kingdom</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="GRbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/gr.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Greece</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="HRbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/hr.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Croatia</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="HUbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/hu.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Hungary</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="IEbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/ie.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Ireland</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="ITbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/it.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Italy</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="LTbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/lt.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Lithuania</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="LUbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/lu.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Luxemburg</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="LVbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/lv.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Latvia</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="MTbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/mt.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Malta</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="NLbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/nl.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Netherlands</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="PLbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/pl.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Poland</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="PTbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/pt.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Portugal</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="RObutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/ro.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Romania</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="SIbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/si.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Slovenia</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" id="SKbutton" name="_eventId_proceed">
+                                            <span class="country-image">
+                                            <img src="/resources/images/flags/sk.png" alt=""/>
+                                            </span>
+                                            <span class="country-name" data-i18n="eidas__vaihtoehto__belgium">Slovakia</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <a href="/sp-error"
+                           class="go-back">
+                            <span>Palaa</span>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-8">
+                            <div class="sign-in-info">
+                                <p class="small" data-i18n="valinta__suomifi-tunnistaminen-roadmap">
+                                    Suomi.fi-tunnistuksen käyttöliittymä on uudistunut. Tunnistat kaikki
+                                    Suomi.fi-palvelut Suomi.fi-lipputunnisteesta. Suomi.fi-tunnistus on julkishallinnon
+                                    asiointipalveluiden yhteinen tunnistuspalvelu. Tunnistautuminen on turvallista ja
+                                    helppoa. Valitset itse, mitä tunnistustapaa haluat hyödyntää.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer id="page-footer" role="contentinfo">
+        <a href="#" class="go-up" data-i18n="footer__takaisin_ylös">Takaisin ylös</a>
+        <div id="footer-content" class="container">
+					<span class="site-logo">
+						<img src="/resources/img/tunnistaminen_logo_fi.svg" data-i18n="header__logo"
+                             alt="Suomi.fi-tunnistaminen"/>
+					</span>
+            <div class="footer-links">
+                <ul class="footer-links-info">
+                    <li>
+                        <a id="footer__tietoa_tunnistautumisesta" data-i18n="footer__tietoa_tunnistautumisesta"
+                           target="_blank" href="/sivut/info/tietoapalvelusta/">Tietoa Suomi.fi-tunnistamisesta</a>
+                        <span class="sr-only" data-i18n="footer__linkki_avautuu_uuteen_ikkunaan">Linkki avautuu uuteen ikkunaan</span>
+                    </li>
+                    <li>
+                        <a id="footer__tietosuojaseloste" data-i18n="footer__tietosuojaseloste" target="_blank"
+                           href="/sivut/info/tietosuojaseloste/">Tietosuojaseloste</a>
+                        <span class="sr-only" data-i18n="footer__linkki_avautuu_uuteen_ikkunaan">Linkki avautuu uuteen ikkunaan</span>
+                    </li>
+                </ul>
+                <ul class="footer-links-feedback">
+                    <li>
+                        <a id="footer__palaute" data-i18n="footer__anna_palautetta" target="_blank"
+                           href="/sivut/info/palaute/">Anna palautetta</a>
+                        <span class="sr-only" data-i18n="footer__linkki_avautuu_uuteen_ikkunaan">Linkki avautuu uuteen ikkunaan</span>
+                    </li>
+                    <li>
+                        <a id="footer__virhepalaute" data-i18n="footer__virhepalaute" target="_blank"
+                           href="/sivut/info/virhepalaute/">Ilmoita virheestä</a>
+                        <span class="sr-only" data-i18n="footer__linkki_avautuu_uuteen_ikkunaan">Linkki avautuu uuteen ikkunaan</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
