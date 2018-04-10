@@ -1,16 +1,6 @@
 <IfModule mod_ssl.c>
+Listen 443
         <VirtualHost *:443>
-                #ServerAdmin webmaster@localhost
-                #DocumentRoot /var/www/html
-
-                # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-                # error, crit, alert, emerg.
-                # It is also possible to configure the loglevel for particular
-                # modules, e.g.
-                #LogLevel info ssl:warn
-
-                ErrorLog ${APACHE_LOG_DIR}/error.log
-                CustomLog ${APACHE_LOG_DIR}/access.log combined
 
                 SSLEngine on
                 SSLCertificateFile    /etc/ssl/certs/{{ apro_ssl_cert }}
@@ -22,6 +12,7 @@
                 SSLCompression Off
 
                 UseCanonicalName on
+
                 ServerName {{apache_server_name}}
 
                 Alias /shibboleth-sp /usr/share/shibboleth
@@ -54,5 +45,4 @@
 
         </VirtualHost>
 </IfModule>
-
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet

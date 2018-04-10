@@ -17,7 +17,10 @@
   local_action: copy src={{ conf_root }}/certs/{{ host }}/{{ apro_ssl_key }} dest={{ tempdir }}/filled/private/{{ apro_ssl_key }}
 
 - name: Copy Apache SSL config
-  template: src={{ tempdir }}/default-ssl.conf.template dest={{ tempdir }}/filled/default-ssl.conf
+  template: src={{ tempdir }}/sp-ssl.conf.template dest={{ tempdir }}/filled/sp-ssl.conf
+
+- name: Copy httpd config
+  template: src={{ tempdir }}/httpd.conf.template dest={{ tempdir }}/filled/httpd.conf
 
 - name: Copy Shibboleth metadata cert
   local_action: copy src={{ conf_root }}/certs/{{ shibgen_core_sp_id }}/sp-signing.crt dest={{ tempdir }}/filled/sp_metadata/{{ sp_cert }}

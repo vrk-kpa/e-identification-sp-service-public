@@ -71,14 +71,14 @@ fi
 cd ${SCRIPTPATH}/..
 
 # Pull the base image
-docker pull dev-docker-registry.kapa.ware.fi/e-identification-tomcat-apache2-shibd-sp-base-image
+docker pull dev-docker-registry.kapa.ware.fi/e-identification-base-centos7-shibd
 IMAGE_NAME=dev-docker-registry.kapa.ware.fi/service-provider:${TARGET_ENV}
 
 #build, tag and push docker image
 
 docker build -f Dockerfile -t ${IMAGE_NAME} .
 # Add labels to image, jenkins build tag, git commit, git branch, package list and jar list currently
-DPKG_RESULT=$(docker run --rm --entrypoint="/usr/bin/dpkg-query" ${IMAGE_NAME} -W|sed -e 's/$/|/' -e 's/$/\\/')
+DPKG_RESULT=$(docker run --rm --entrypoint="rpm" ${IMAGE_NAME} -qa|sed -e 's/$/|/' -e 's/$/\\/')
 JAR_LIST=$(mvn dependency:list -DoutputAbsoluteArtifactFilename=true|grep jar|sed -e 's/.* //' -e 's/.*://'|xargs md5sum|sed -e 's/ .*\// /' -e 's/$/|/' -e 's/$/\\/')
 printf "FROM ${IMAGE_NAME}\nLABEL build-tag=${BUILD_TAG}\nLABEL git-commit=${GIT_COMMIT}\nLABEL git-branch=${GIT_BRANCH}\nLABEL dpkg-list=\"${DPKG_RESULT}\"\nLABEL jar-list=\"${JAR_LIST}\"\n"|docker build -t ${IMAGE_NAME} -
 

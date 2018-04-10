@@ -716,11 +716,11 @@
             </SessionInitiator>
 
             <SessionInitiator Location="{{ spconf_location_eidas2 }}/fi" NameIDFormat="urn:oasis:names:tc:saml:2.0:nameid-format:transient" entityID="{{ spconf_entityid_eidas2 }}" forceAuthn="true" template="bindingTemplateFICountry.html" id="LoginEIDAS2Fi" type="SAML2">
-            <samlp:AuthnRequest ID="LoginEIDAS2FIp" IssueInstant="2012-01-01T00:00:00Z" ProviderName="DEMO-SP" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
-              <samlp:Extensions>
-                <eidas:SPType xmlns:eidas="http://eidas.europa.eu/saml-extensions">public</eidas:SPType>
-                <eidas:RequestedAttributes xmlns:eidas="http://eidas.europa.eu/saml-extensions">
-                  <eidas:RequestedAttribute FriendlyName="FamilyName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                <samlp:AuthnRequest ID="LoginEIDAS2FIp" IssueInstant="2012-01-01T00:00:00Z" ProviderName="DEMO-SP" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+                    <samlp:Extensions>
+                        <eidas:SPType xmlns:eidas="http://eidas.europa.eu/saml-extensions">public</eidas:SPType>
+                        <eidas:RequestedAttributes xmlns:eidas="http://eidas.europa.eu/saml-extensions">
+                        <eidas:RequestedAttribute FriendlyName="FamilyName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
                   <eidas:RequestedAttribute FriendlyName="FirstName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
                   <eidas:RequestedAttribute FriendlyName="DateOfBirth" Name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
                   <eidas:RequestedAttribute FriendlyName="PersonIdentifier" Name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
@@ -730,7 +730,40 @@
                 <saml:AuthnContextClassRef>http://eidas.europa.eu/LoA/low</saml:AuthnContextClassRef>
               </samlp:RequestedAuthnContext>
             </samlp:AuthnRequest>
-          </SessionInitiator>
+            </SessionInitiator>
+            <SessionInitiator Location="{{ spconf_location_eidas2 }}/sv" NameIDFormat="urn:oasis:names:tc:saml:2.0:nameid-format:transient" entityID="{{ spconf_entityid_eidas2 }}" forceAuthn="true" template="bindingTemplateFICountry.html" id="LoginEIDAS2Sv" type="SAML2">
+                <samlp:AuthnRequest ID="LoginEIDAS2SVp" IssueInstant="2012-01-01T00:00:00Z" ProviderName="DEMO-SP" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+                    <samlp:Extensions>
+                        <eidas:SPType xmlns:eidas="http://eidas.europa.eu/saml-extensions">public</eidas:SPType>
+                        <eidas:RequestedAttributes xmlns:eidas="http://eidas.europa.eu/saml-extensions">
+                            <eidas:RequestedAttribute FriendlyName="FamilyName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="FirstName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="DateOfBirth" Name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="PersonIdentifier" Name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                        </eidas:RequestedAttributes>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="minimum" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>http://eidas.europa.eu/LoA/low</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+            <SessionInitiator Location="{{ spconf_location_eidas2 }}/en" NameIDFormat="urn:oasis:names:tc:saml:2.0:nameid-format:transient" entityID="{{ spconf_entityid_eidas2 }}" forceAuthn="true" template="bindingTemplateFICountry.html" id="LoginEIDAS2En" type="SAML2">
+                <samlp:AuthnRequest ID="LoginEIDAS2ENp" IssueInstant="2012-01-01T00:00:00Z" ProviderName="DEMO-SP" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+                    <samlp:Extensions>
+                        <eidas:SPType xmlns:eidas="http://eidas.europa.eu/saml-extensions">public</eidas:SPType>
+                        <eidas:RequestedAttributes xmlns:eidas="http://eidas.europa.eu/saml-extensions">
+                            <eidas:RequestedAttribute FriendlyName="FamilyName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="FirstName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="DateOfBirth" Name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="PersonIdentifier" Name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                        </eidas:RequestedAttributes>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="minimum" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>http://eidas.europa.eu/LoA/low</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
           <SessionInitiator Location="{{ spconf_location_eidas1 }}/fi" entityID="{{ spconf_entityid_eidas1 }}" id="LoginEIDAS1Fi" type="SAML2">
              <samlp:AuthnRequest ID="LoginEIDAS1FIp" IssueInstant="2012-01-01T00:00:00Z" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
                <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
