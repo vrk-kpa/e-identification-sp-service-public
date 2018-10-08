@@ -72,7 +72,7 @@ public class ServiceProviderTest {
     public void updateSessionAndGetRedirectUriWithReplyAttackReturnsPhaseIdErrorUrl() throws Exception {
         when(historyService.areIdsConsumed(anyString(), anyString())).thenReturn(true);
         when(urlService.createPhaseIdErrorURL(anyString())).thenReturn(new URI("http://phase_id.error"));
-        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(null, new MultivaluedHashMap<>(), "TID", "PID", "TAG");
         assertEquals("http://phase_id.error", uri.toString());
         verify(urlService).createPhaseIdErrorURL("TAG");
     }
@@ -84,7 +84,7 @@ public class ServiceProviderTest {
         when(phaseIdInitSession.verifyPhaseId(anyString(), anyString(), anyString())).thenReturn(true);
         when(sessionDataExtractor.extractSessionData(any())).thenThrow(new InvalidIdentifierException());
         when(urlService.createRequestErrorURL(anyString())).thenReturn(new URI("http://request.error"));
-        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(null, new MultivaluedHashMap<>(), "TID", "PID", "TAG");
         assertEquals("http://request.error", uri.toString());
         verify(urlService).createRequestErrorURL("TAG");
     }
@@ -97,7 +97,7 @@ public class ServiceProviderTest {
         when(sessionDataExtractor.extractSessionData(any())).thenReturn(Collections.emptyMap());
         when(urlService.createInternalErrorURL(anyString())).thenReturn(new URI("http://internal.error"));
         when(proxyClient.updateSession(anyMap(), anyString(), anyString(), anyString())).thenThrow(new InternalErrorException());
-        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(null, new MultivaluedHashMap<>(), "TID", "PID", "TAG");
         assertEquals("http://internal.error", uri.toString());
         verify(urlService).createInternalErrorURL("TAG");
     }
@@ -110,7 +110,7 @@ public class ServiceProviderTest {
         when(sessionDataExtractor.extractSessionData(any())).thenReturn(Collections.emptyMap());
         when(urlService.createRequestErrorURL(anyString())).thenReturn(new URI("http://request.error"));
         when(proxyClient.updateSession(anyMap(), anyString(), anyString(), anyString())).thenThrow(new InvalidRequestException());
-        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(null, new MultivaluedHashMap<>(), "TID", "PID", "TAG");
         assertEquals("http://request.error", uri.toString());
         verify(urlService).createRequestErrorURL("TAG");
     }
@@ -128,7 +128,7 @@ public class ServiceProviderTest {
         when(proxyClient.updateSession(anyMap(), anyString(), anyString(), anyString())).thenReturn(t);
         when(urlService.createSuccessURL(anyString(), anyString(), anyString())).thenReturn(new URI("http://success.com"));
         //
-        URI uri = serviceProvider.updateSessionAndGetRedirectUri(new MultivaluedHashMap<>(), "TID", "PID", "TAG");
+        URI uri = serviceProvider.updateSessionAndGetRedirectUri(null, new MultivaluedHashMap<>(), "TID", "PID", "TAG");
         assertEquals("http://success.com", uri.toString());
         verify(urlService).createSuccessURL("REPLY_TOKEN_ID", "REPLY_PHASE_ID", "TAG");
     }

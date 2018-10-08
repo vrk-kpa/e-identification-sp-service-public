@@ -98,14 +98,6 @@ public class SessionDataExtractorTest {
     }
 
     @Test
-    public void getIdentifierTypeReturnsEppnWhenEppnIdentifierFoundInSessionData() throws Exception {
-        SessionDataExtractor extractor = new SessionDataExtractor();
-        HashMap<String,String> sessionData = new HashMap<>();
-        sessionData.put("AJP_eppn", "TEST_EPPN");
-        assertEquals(EPPN, extractor.getIdentifierType(sessionData));
-    }
-
-    @Test
     public void extractSessionDataPicksRemoteUser() throws Exception {
         MultivaluedMap<String,String> headers = new MultivaluedHashMap<>();
         headers.putSingle("AJP_hetu", "TEST_HETU");

@@ -100,6 +100,66 @@
                               entityID="{{ spconf_entityid_fakevetuma }}">
             </SessionInitiator>
 
+            <SessionInitiator type="SAML2" id="LoginFakevetuma2Fi" Location="{{spconf_location_fakevetuma2}}/fi"
+                              entityID="{{ spconf_entityid_testidp }}">
+                  <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="fakevetuma_fi" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                      <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                          <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.999</saml:AuthnContextClassRef>
+                      </samlp:RequestedAuthnContext>
+                  </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginFakevetuma2Sv" Location="{{spconf_location_fakevetuma2}}/sv"
+                              entityID="{{ spconf_entityid_testidp }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="fakevetuma_sv" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                      <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                          <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.999</saml:AuthnContextClassRef>
+                      </samlp:RequestedAuthnContext>
+                  </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginFakevetuma2En" Location="{{spconf_location_fakevetuma2}}/en"
+                              entityID="{{ spconf_entityid_testidp }}">
+                  <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="fakevetuma_en" Version="2.0"
+                                      IssueInstant="2012-01-01T00:00:00Z">
+                        <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                            <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.999</saml:AuthnContextClassRef>
+                        </samlp:RequestedAuthnContext>
+                    </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginTestIdPFi" Location="{{spconf_location_testidp}}/fi"
+                              entityID="{{ spconf_entityid_testidp }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="testidp_fi" Version="2.0"
+                                  IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.995</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginTestIdPSv" Location="{{spconf_location_testidp}}/sv"
+                              entityID="{{ spconf_entityid_testidp }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="testidp_sv" Version="2.0"
+                                  IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.995</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginTestIdPEn" Location="{{spconf_location_testidp}}/en"
+                              entityID="{{ spconf_entityid_testidp }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="testidp_en" Version="2.0"
+                                  IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.995</saml:AuthnContextClassRef>
+                        </samlp:RequestedAuthnContext>
+                    </samlp:AuthnRequest>
+            </SessionInitiator>
+
             <SessionInitiator type="SAML2" id="LoginVetumaFi" Location="{{spconf_location_vetuma}}/fi"
                               entityID="{{ spconf_entityid_vetuma }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="vetuma_fi" Version="2.0"
@@ -183,7 +243,18 @@
                     </samlp:Extensions>
                 </samlp:AuthnRequest>
             </SessionInitiator>
-
+            
+            <SessionInitiator type="SAML2" id="LoginMobiili2Fi" Location="{{spconf_location_mobiili2}}/fi"
+                              entityID="{{ spconf_entityid_mobiili2 }}"
+                              template="bindingTemplateFIT.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili2_fi" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextDeclRef>{{spconf_AuthnContextDeclRef_mobiili2}}</saml:AuthnContextDeclRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest> 
+            </SessionInitiator>
+            
             <SessionInitiator type="SAML2" id="LoginMobiiliSv" Location="{{spconf_location_mobiili}}/sv"
                               entityID="{{ spconf_entityid_mobiili }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili_sv" Version="2.0"
@@ -196,6 +267,17 @@
                 </samlp:AuthnRequest>
             </SessionInitiator>
 
+            <SessionInitiator type="SAML2" id="LoginMobiili2Sv" Location="{{spconf_location_mobiili2}}/sv"
+                              entityID="{{ spconf_entityid_mobiili2 }}"
+                              template="bindingTemplateSVT.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili2_sv" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextDeclRef>{{spconf_AuthnContextDeclRef_mobiili2}}</saml:AuthnContextDeclRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest> 
+            </SessionInitiator>
+            
             <SessionInitiator type="SAML2" id="LoginMobiiliEn" Location="{{spconf_location_mobiili}}/en"
                               entityID="{{ spconf_entityid_mobiili }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili_en" Version="2.0"
@@ -205,6 +287,17 @@
                             <lang>en</lang>
                         </kapa>
                     </samlp:Extensions>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginMobiili2En" Location="{{spconf_location_mobiili2}}/en"
+                              entityID="{{ spconf_entityid_mobiili2 }}"
+                              template="bindingTemplateENT.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili2_en" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextDeclRef>{{spconf_AuthnContextDeclRef_mobiili2}}</saml:AuthnContextDeclRef>
+                    </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest>
             </SessionInitiator>
 
@@ -764,40 +857,96 @@
                 </samlp:AuthnRequest>
             </SessionInitiator>
 
-          <SessionInitiator Location="{{ spconf_location_eidas1 }}/fi" entityID="{{ spconf_entityid_eidas1 }}" id="LoginEIDAS1Fi" type="SAML2">
-             <samlp:AuthnRequest ID="LoginEIDAS1FIp" IssueInstant="2012-01-01T00:00:00Z" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
-               <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
-                 <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.998</saml:AuthnContextClassRef>
+            <SessionInitiator Location="{{ spconf_location_eidas_low }}" entityID="{{ spconf_entityid_eidas2 }}" template="bindingTemplateEidas.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" forceAuthn="true" NameIDFormat="urn:oasis:names:tc:saml:2.0:nameid-format:transient" id="LoginEIDAS1Fi" type="SAML2">
+             <samlp:AuthnRequest ID="LoginEIDASlow" IssueInstant="2012-01-01T00:00:00Z" ProviderName="{{ spconf_provider_name }}" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+              <samlp:Extensions>
+                        <eidas:SPType xmlns:eidas="http://eidas.europa.eu/saml-extensions">public</eidas:SPType>
+                        <eidas:RequestedAttributes xmlns:eidas="http://eidas.europa.eu/saml-extensions">
+                            <eidas:RequestedAttribute FriendlyName="FamilyName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="FirstName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="DateOfBirth" Name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="PersonIdentifier" Name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                        </eidas:RequestedAttributes>
+                    </samlp:Extensions>
+                 <samlp:RequestedAuthnContext Comparison="minimum" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                 <saml:AuthnContextClassRef>http://eidas.europa.eu/LoA/low</saml:AuthnContextClassRef>
                </samlp:RequestedAuthnContext>
              </samlp:AuthnRequest>
            </SessionInitiator>
-          <SessionInitiator Location="{{ spconf_location_eidas1 }}/sv" entityID="{{ spconf_entityid_eidas1 }}" id="LoginEIDAS1Sv" type="SAML2">
-            <samlp:AuthnRequest ID="LoginEIDAS1SVp" IssueInstant="2012-01-01T00:00:00Z" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
-              <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
-                <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.998</saml:AuthnContextClassRef>
-              </samlp:RequestedAuthnContext>
-            </samlp:AuthnRequest>
-          </SessionInitiator>
-          <SessionInitiator Location="{{ spconf_location_eidas1 }}/en" entityID="{{ spconf_entityid_eidas1 }}" id="LoginEIDAS1En" type="SAML2">
-            <samlp:AuthnRequest ID="LoginEIDAS1ENp" IssueInstant="2012-01-01T00:00:00Z" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
-              <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
-                <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.998</saml:AuthnContextClassRef>
-              </samlp:RequestedAuthnContext>
-            </samlp:AuthnRequest>
-          </SessionInitiator>
-
+          <SessionInitiator Location="{{ spconf_location_eidas_substantial }}" entityID="{{ spconf_entityid_eidas2 }}" template="bindingTemplateEidas.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" forceAuthn="true" NameIDFormat="urn:oasis:names:tc:saml:2.0:nameid-format:transient" id="LoginEIDAS1Fi" type="SAML2">
+             <samlp:AuthnRequest ID="LoginEIDASsubstabtial" IssueInstant="2012-01-01T00:00:00Z" ProviderName="{{ spconf_provider_name }}" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+              <samlp:Extensions>
+                        <eidas:SPType xmlns:eidas="http://eidas.europa.eu/saml-extensions">public</eidas:SPType>
+                        <eidas:RequestedAttributes xmlns:eidas="http://eidas.europa.eu/saml-extensions">
+                            <eidas:RequestedAttribute FriendlyName="FamilyName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="FirstName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="DateOfBirth" Name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="PersonIdentifier" Name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                        </eidas:RequestedAttributes>
+                    </samlp:Extensions>
+                 <samlp:RequestedAuthnContext Comparison="minimum" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                 <saml:AuthnContextClassRef>http://eidas.europa.eu/LoA/substantial</saml:AuthnContextClassRef>
+               </samlp:RequestedAuthnContext>
+             </samlp:AuthnRequest>
+           </SessionInitiator>
+          <SessionInitiator Location="{{ spconf_location_eidas_high }}" entityID="{{ spconf_entityid_eidas2 }}" template="bindingTemplateEidas.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" forceAuthn="true" NameIDFormat="urn:oasis:names:tc:saml:2.0:nameid-format:transient" id="LoginEIDAS1Fi" type="SAML2">
+             <samlp:AuthnRequest ID="LoginEIDAShigh" IssueInstant="2012-01-01T00:00:00Z" ProviderName="{{ spconf_provider_name }}" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+              <samlp:Extensions>
+                        <eidas:SPType xmlns:eidas="http://eidas.europa.eu/saml-extensions">public</eidas:SPType>
+                        <eidas:RequestedAttributes xmlns:eidas="http://eidas.europa.eu/saml-extensions">
+                            <eidas:RequestedAttribute FriendlyName="FamilyName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="FirstName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="DateOfBirth" Name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                            <eidas:RequestedAttribute FriendlyName="PersonIdentifier" Name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" xmlns:eidas="http://eidas.europa.eu/saml-extensions"/>
+                        </eidas:RequestedAttributes>
+                    </samlp:Extensions>
+                 <samlp:RequestedAuthnContext Comparison="minimum" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                 <saml:AuthnContextClassRef>http://eidas.europa.eu/LoA/high</saml:AuthnContextClassRef>
+               </samlp:RequestedAuthnContext>
+             </samlp:AuthnRequest>
+           </SessionInitiator>
+           <SessionInitiator Location="{{ spconf_location_eidas_de }}" entityID="{{ spconf_entityid_mw_de }}" template="bindingTemplateDE.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" forceAuthn="true" isPassive="false" NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:transient" id="LoginEIDAS2DEi" type="SAML2">
+             <saml2p:AuthnRequest Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified" ForceAuthn="true" ID="LoginEIDASDEhigh" IsPassive="false" IssueInstant="2012-01-01T00:00:00Z" ProviderName="{{ spconf_provider_name }}" Version="2.0" xmlns:eidas="http://eidas.europa.eu/saml-extensions" xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
+               <saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity"
+                             xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">{{ spconf_entityid }}</saml2:Issuer>
+               <saml2p:Extensions>
+                 <eidas:SPType>public</eidas:SPType>
+                 <eidas:RequestedAttributes>
+                   <eidas:RequestedAttribute FriendlyName="FamilyName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+                   <eidas:RequestedAttribute FriendlyName="FirstName" Name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+                   <eidas:RequestedAttribute FriendlyName="DateOfBirth" Name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+                   <eidas:RequestedAttribute FriendlyName="PersonIdentifier" Name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+                 </eidas:RequestedAttributes>
+               </saml2p:Extensions>
+               <saml2p:NameIDPolicy AllowCreate="true" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient" xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol"/>
+               <saml2p:RequestedAuthnContext Comparison="minimum" xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
+                 <saml2:AuthnContextClassRef xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">http://eidas.europa.eu/LoA/high</saml2:AuthnContextClassRef>
+               </saml2p:RequestedAuthnContext>
+             </saml2p:AuthnRequest>
+           </SessionInitiator>
+           <SessionInitiator Location="/LoginTesteLoA3" entityID="{{ spconf_entityid_testidp }}" template="bindingTemplateEidas.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" id="LoginTestEidasLoA3" type="SAML2">
+               <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="testeloa3" Version="2.0"
+                                 IssueInstant="2012-01-01T00:00:00Z">
+                   <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                       <saml:AuthnContextClassRef>http://eidas.europa.eu/LoA/high</saml:AuthnContextClassRef>
+                   </samlp:RequestedAuthnContext>
+               </samlp:AuthnRequest>
+           </SessionInitiator>
         </Sessions>
 
         <!-- Error pages to display to yourself if something goes horribly wrong. -->
         <!-- ************************************************************************ -->
         <Errors supportContact="{{ spconf_support_email }}" redirectErrors="{{ failure_redirect_url }}"/>
         <RelyingParty Name="{{ spconf_entityid_eidas2 }}" keyName="{{ spconf_entityid_eidas2 }}"/>
+        <RelyingParty Name="{{ spconf_entityid_mw_de }}" keyName="{{ spconf_entityid_mw_de }}"/>
 
         <!-- Loads and trusts a metadata file -->
         <MetadataProvider type="XML" url="{{ spconf_service_idp_metadata_url }}"
                           backingFilePath="/etc/shibboleth/idp-metadata/service-idp-metadata.xml"
                           maxRefreshDelay="1800"/>
 
+        <MetadataProvider type="XML" url="{{ spconf_entityid_mw_de }}" backingFilePath="/etc/shibboleth/idp-metadata/mw_de-eidasproxy-idp-metadata.xml"
+                          maxRefreshDelay="1800"/>
 
         <!-- Attribute and trust options you shouldn't need to change. -->
         <AttributeExtractor type="XML" validate="true" path="attribute-map.xml"/>
@@ -807,7 +956,10 @@
         <!-- Your SP generated these credentials.  They're used to talk to IdP's. -->
         <CredentialResolver type="Chaining">
             <CredentialResolver certificate="{{ sp_cert }}" key="{{ sp_key }}" type="File"/>
-            <CredentialResolver certificate="{{ eidas_cert }}" key="{{ eidas_key }}" keyName="{{ spconf_entityid_eidas2 }}" type="File"/>
+            <CredentialResolver certificate="{{ sp_eidas_signing_cert }}" key="{{ sp_eidas_signing_key }}" keyName="{{ spconf_entityid_eidas2 }}" type="File" use="signing"/>
+            <CredentialResolver certificate="{{ sp_eidas_encryption_cert }}" key="{{ sp_eidas_encryption_key }}" keyName="{{ spconf_entityid_eidas2 }}" type="File" use="encrypt"/>
+            <CredentialResolver certificate="{{ sp_eidas_signing_cert }}" key="{{ sp_eidas_signing_key }}" keyName="{{ spconf_entityid_mw_de }}" type="File" use="signing"/>
+            <CredentialResolver certificate="{{ sp_eidas_encryption_cert }}" key="{{ sp_eidas_encryption_key }}" keyName="{{ spconf_entityid_mw_de }}" type="File" use="encrypt"/>
         </CredentialResolver>
 
     </ApplicationDefaults>

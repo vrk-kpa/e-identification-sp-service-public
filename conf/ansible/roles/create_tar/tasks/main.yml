@@ -1,6 +1,9 @@
 - name: Copy Shibboleth config template
   template: src={{ tempdir }}/shibboleth2.xml.template.{{ env }} dest={{ tempdir }}/filled/shibboleth2.xml
 
+- name: Copy Shibboleth attribute-policy template
+  template: src={{ tempdir }}/attribute-policy.xml.template dest={{ tempdir }}/filled/attribute-policy.xml
+
 - name: Copy sp-setenv.sh
   template: src={{ tempdir }}/sp-setenv.sh.template dest={{ tempdir }}/filled/sp-setenv.sh
 
@@ -27,6 +30,22 @@
 
 - name: Copy Shibboleth metadata key
   local_action: copy src={{ conf_root }}/certs/{{ shibgen_core_sp_id }}/sp-signing.key dest={{ tempdir }}/filled/sp_metadata/{{ sp_key }}
+
+- name: Copy sp eidas signing cert
+  local_action: copy src={{ conf_root }}/certs/{{ shibgen_core_sp_id }}/sp-eidas-signing.pem dest={{ tempdir }}/filled/sp_metadata/{{ sp_eidas_signing_cert }}
+  when: env == "local" or env == "dev" or env == "kete" or env == "prod"
+
+- name: Copy sp eidas signing key
+  local_action: copy src={{ conf_root }}/certs/{{ shibgen_core_sp_id }}/sp-eidas-signing.key dest={{ tempdir }}/filled/sp_metadata/{{ sp_eidas_signing_key }}
+  when: env == "local" or env == "dev" or env == "kete" or env == "prod"
+
+- name: Copy sp eidas encryption cert
+  local_action: copy src={{ conf_root }}/certs/{{ shibgen_core_sp_id }}/sp-eidas-encryption.pem dest={{ tempdir }}/filled/sp_metadata/{{ sp_eidas_encryption_cert }}
+  when: env == "local" or env == "dev" or env == "kete" or env == "prod"
+
+- name: Copy sp eidas encryption key
+  local_action: copy src={{ conf_root }}/certs/{{ shibgen_core_sp_id }}/sp-eidas-encryption.key dest={{ tempdir }}/filled/sp_metadata/{{ sp_eidas_encryption_key }}
+  when: env == "local" or env == "dev" or env == "kete" or env == "prod"
 
 - name: Copy Service Provider properties
   template: src={{ tempdir }}/service-provider.properties.template dest={{ tempdir }}/filled/service-provider.properties

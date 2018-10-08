@@ -5,6 +5,8 @@ failure.param.internal=int
 failure.param.invalid=msginv
 failure.param.phaseid=phid
 proxy.rest.url={{proxy_rest_url}}/rest/proxy/sp
+eidas.form.url={{eidas_form_url}}
+eidas.email.post.url={{eidas_email_post_url}}
 
 # http client configuration:
 http.client.max_conn_per_route={{spconf_http_client_max_conn_per_route | default('1024')}}

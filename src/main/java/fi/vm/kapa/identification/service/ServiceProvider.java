@@ -27,6 +27,8 @@ import fi.vm.kapa.identification.dto.ProxyMessageDTO;
 import fi.vm.kapa.identification.exception.InternalErrorException;
 import fi.vm.kapa.identification.exception.InvalidIdentifierException;
 import fi.vm.kapa.identification.exception.InvalidRequestException;
+import fi.vm.kapa.identification.model.EidasSession;
+import fi.vm.kapa.identification.model.EidasFlow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 import java.net.URI;
@@ -44,6 +48,7 @@ import java.util.Map;
 public class ServiceProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceProvider.class);
+    private static final Logger auditLogger = LoggerFactory.getLogger("AuditLog");
 
     private final PhaseIdService phaseIdInitSession;
     private final PhaseIdHistoryService historyService;
@@ -69,11 +74,12 @@ public class ServiceProvider {
         this.sessionDataExtractor = sessionDataExtractor;
     }
 
-    public URI updateSessionAndGetRedirectUri(MultivaluedMap<String,String> headers,
+    public URI updateSessionAndGetRedirectUri(HttpServletRequest request, MultivaluedMap<String, String> headers,
                                               String tid, String pid, String logTag) throws URISyntaxException {
 
         logger.debug("Processing SAML response with tid {} and pid {}", tid, pid);
         URI redirectUrl;
+        EidasFlow eidasFlow;
         try {
             /* Token and phase IDs must be checked if they've been used already
              * in order to prevent replay attacks, there's only a small history
@@ -84,8 +90,24 @@ public class ServiceProvider {
             if (tidAndPidAreValid) {
                 Map<String,String> sessionData = sessionDataExtractor.extractSessionData(headers);
                 ProxyMessageDTO message = updateSession(tid, logTag, sessionData);
-                redirectUrl = urlService.createSuccessURL(message.getTokenId(), message.getPhaseId(), logTag);
+                if ( message.getEidasContactAddress() != null && request != null ) {
+                    eidasFlow = EidasFlow.EIDAS_FORM;
+                    HttpSession session = request.getSession(true);
+                    EidasSession eidasSession = new EidasSession();
+                    eidasSession.setEidasContactAddress(message.getEidasContactAddress());
+                    eidasSession.setDisplayNameFI(message.getDisplayNameFI());
+                    eidasSession.setEntityID(message.getEntityId());
+                    eidasSession.setLogTag(logTag);
+                    session.setAttribute(EidasSession.SESSION_ATTRIBUTE, eidasSession);
+                    redirectUrl = urlService.createEidasFormUrl(message.getEntityId(), logTag);
+                }
+                else {
+                    eidasFlow = EidasFlow.DEFAULT;
+                    redirectUrl = urlService.createSuccessURL(message.getTokenId(), message.getPhaseId(), logTag);
+                }
                 logger.debug("Redirect URL to IdP: " + redirectUrl.toString());
+                AuditLogRowBuilder auditLogRowBuilder = new AuditLogRowBuilder(sessionData, message, logTag, eidasFlow);
+                auditLogger.info(auditLogRowBuilder.build());
             } else {
                 logger.warn("<<{}>> Got invalid phase ID", logTag);
                 redirectUrl = urlService.createPhaseIdErrorURL(logTag);

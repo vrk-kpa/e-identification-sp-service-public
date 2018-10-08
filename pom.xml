@@ -40,8 +40,9 @@
         <spring.security.version>3.2.6.RELEASE</spring.security.version>
         <servlet.version>3.0.1</servlet.version>
         <slf4j.version>1.7.10</slf4j.version>
+        <apache-log4j-extras.version>1.2.17</apache-log4j-extras.version>
         <docker.image.tag></docker.image.tag>
-        <docker.image.prefix>dev-docker-registry.kapa.ware.fi</docker.image.prefix>
+        <docker.image.prefix>e-identification-docker-virtual.vrk-artifactory-01.eden.csc.fi</docker.image.prefix>
         <spotify-docker.version>0.3.1</spotify-docker.version>
         <jax-rs.version>2.0.1</jax-rs.version>
         <jackson.version>2.5.0</jackson.version>
@@ -118,6 +119,12 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-moxy</artifactId>
             <version>${jersey.version}</version>
         </dependency>
 
@@ -202,6 +209,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+            <version>${apache-log4j-extras.version}</version>
         </dependency>
 
         <!-- GSON deps -->

@@ -44,5 +44,20 @@ log4j.appender.FILE.TimeInterval=65
 log4j.appender.FILE.layout.ConversionPattern=%d{ISO8601} %-5p {%X{user}} [%t] %-5p %c: %m%n
 {% endraw %}
 
+# Audit output
+log4j.appender.AUDIT=org.apache.log4j.rolling.RollingFileAppender
+log4j.appender.AUDIT.Append=true
+log4j.appender.AUDIT.RollingPolicy=org.apache.log4j.rolling.TimeBasedRollingPolicy
+log4j.appender.AUDIT.RollingPolicy.ActiveFileName=/data00/logs/service-provider-audit.log
+log4j.appender.AUDIT.layout=org.apache.log4j.PatternLayout
+{# Make ansible ignores curly braces below #}
+{% raw %}
+log4j.appender.AUDIT.RollingPolicy.FileNamePattern=/data00/logs/service-provider-audit-%d{yyyy-MM-dd}.log.gz
+log4j.appender.AUDIT.layout.ConversionPattern=%d{yyyyMMdd'T'HHmmss'Z'}|%m%n
+{% endraw %}
+
+log4j.logger.AuditLog=INFO, AUDIT
+log4j.additivity.AuditLog=false
+
 # Remove unnecessary logs
 log4j.logger.org.springframework=ERROR

@@ -35,6 +35,9 @@ Listen 443
                 ProxyPass       /sp-secured ajp://localhost:8009/sp/saml
                 ProxyPassReverse    /sp-secured ajp://localhost:8009/sp/saml
 
+                ProxyPass       /eidas-email ajp://localhost:8009/sp/eidas-email
+                ProxyPassReverse    /eidas-email ajp://localhost:8009/sp/eidas-email
+
                 ProxyPass           /sp-error ajp://localhost:8009/sp/sp-error
                 ProxyPassReverse    /sp-error ajp://localhost:8009/sp/sp-error
 

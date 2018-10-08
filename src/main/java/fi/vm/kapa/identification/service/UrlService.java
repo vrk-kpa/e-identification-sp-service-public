@@ -45,6 +45,8 @@ public class UrlService {
     private String failureRedirectBase;
     @Value("${success.redirect}")
     private String successRedirectBase;
+    @Value("${eidas.form.url}")
+    private String eidasFormUrl;
 
     /* These strings define the error redirect URL query parameter that can be
      * used to guide the error page, the value matches the property langId that
@@ -71,6 +73,12 @@ public class UrlService {
         return redirectURI;
     }
 
+    public URI createEidasFormUrl(String spEntityId, String logTag) throws URISyntaxException {
+        return new URIBuilder(eidasFormUrl)
+                .addParameter("entityId", spEntityId)
+                .addParameter("tag", logTag)
+                .build();
+    }
 
     public URI createSuccessURL(String tid, String pid, String logTag) throws URISyntaxException {
         return new URIBuilder(successRedirectBase)

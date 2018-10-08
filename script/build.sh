@@ -71,8 +71,8 @@ fi
 cd ${SCRIPTPATH}/..
 
 # Pull the base image
-docker pull dev-docker-registry.kapa.ware.fi/e-identification-base-centos7-shibd
-IMAGE_NAME=dev-docker-registry.kapa.ware.fi/service-provider:${TARGET_ENV}
+docker pull e-identification-docker-virtual.vrk-artifactory-01.eden.csc.fi/e-identification-base-centos7-shibd
+IMAGE_NAME=e-identification-docker-virtual.vrk-artifactory-01.eden.csc.fi/service-provider:${TARGET_ENV}
 
 #build, tag and push docker image
 

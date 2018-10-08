@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
@@ -51,13 +52,14 @@ public class ServiceProviderResource {
     }
 
     @GET
-    public Response processSAMLResponse(@Context HttpHeaders headers,
+    public Response processSAMLResponse(@Context HttpServletRequest request,
+                                        @Context HttpHeaders headers,
                                         @QueryParam("tid") String tid,
                                         @QueryParam("pid") String pid,
                                         @QueryParam("tag") String logTag) {
 
         try {
-            URI redirectUri = serviceProvider.updateSessionAndGetRedirectUri(headers.getRequestHeaders(),
+            URI redirectUri = serviceProvider.updateSessionAndGetRedirectUri(request, headers.getRequestHeaders(),
                     tid, pid, logTag);
             return Response.status(Response.Status.FOUND).location(redirectUri).build();
         } catch (URISyntaxException e) {

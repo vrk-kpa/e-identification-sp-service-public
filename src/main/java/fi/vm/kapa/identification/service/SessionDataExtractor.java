@@ -42,13 +42,11 @@ public class SessionDataExtractor {
      * These values are fetched from shibboleth2.xml and these must be
      * placed in the same order as the enum in Identifier.Types.
      */
-    private static final Identifier.Types[] identifierTypePriority = {SATU, HETU, KID, EPPN, UID, EIDAS_ID};
+    private static final Identifier.Types[] identifierTypePriority = {SATU, HETU, KID, EIDAS_ID};
     private Map<Identifier.Types,String> enumToNameMap = ImmutableMap.<Identifier.Types,String>builder()
             .put(SATU, "AJP_satu")
             .put(HETU, "AJP_hetu")
             .put(KID, "AJP_tfiKid")
-            .put(EPPN, "AJP_eppn")
-            .put(UID, "AJP_uid")
             .put(EIDAS_ID, "AJP_eidasPersonIdentifier")
             .build();
 
