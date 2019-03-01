@@ -43,10 +43,10 @@ public class UrlServiceTest {
 
     @Test
     public void testGenerateErrorUrl() {
-        ReflectionTestUtils.setField(urlService, "discoveryPageBaseUrl", "http://test.disco.page");
-        URI errorUri = urlService.generateErrorURI();
+        ReflectionTestUtils.setField(urlService, "cancelRedirectBase", "http://test.page/");
+        URI errorUri = urlService.generateErrorURI("https://www.tunnistus-dev.xyz/sp-secured?&tid=9ncokgspt1mm2b6538irksao6t&pid=33ed9752ae0b80dce2dee5882962212aac20bdf20f01d33a2703535f0584b499&tag=18050313023c24&conversation=e1s1");
         assertNotNull(errorUri);
-        assertEquals("http://test.disco.page/?msg=cancel",
+        assertEquals("http://test.page/?conversation=e1s1&tid=9ncokgspt1mm2b6538irksao6t&pid=33ed9752ae0b80dce2dee5882962212aac20bdf20f01d33a2703535f0584b499&tag=18050313023c24&status=returnFromIdp",
                 errorUri.toString());
     }
 

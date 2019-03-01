@@ -1,5 +1,6 @@
 # Shibboleth Service Provider properties
 success.redirect={{success_redirect_url}}/idp/authn/External/test
+cancel.redirect={{success_redirect_url}}/idp/authn/External/
 failure.redirect={{default_error_url}}
 failure.param.internal=int
 failure.param.invalid=msginv
@@ -16,7 +17,7 @@ http.pool.default_max_per_route={{spconf_http_pool_default_max_per_route | defa
 # NOTE! These values MUST match to what Proxy and IdP are using
 # since these two shared values define the phase ID HMAC calculation!
 phase.id.shared.secret={{phase_id_shared_secret}}
-phase.id.time.interval={{phase_id_time_interval}}
+phase.id.time.interval={{phase_id_time_interval_auth}}
 phase.id.algorithm=HmacSHA256
 phase.id.step.one={{phase_id_step_one}}
 phase.id.step.two={{phase_id_step_two}}

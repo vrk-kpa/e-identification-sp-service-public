@@ -32,6 +32,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import javax.ws.rs.QueryParam;
 
 @Component
 @Path("/sp-error")
@@ -47,8 +48,8 @@ public class ErrorResource {
     }
 
     @GET
-    public Response getErrorLocation() {
-        URI redirectURI = urlService.generateErrorURI();
+    public Response getErrorLocation(@QueryParam("RelayState") String relayState) {
+        URI redirectURI = urlService.generateErrorURI(relayState);
         return Response.status(Response.Status.FOUND).location(redirectURI).build();
     }
 }

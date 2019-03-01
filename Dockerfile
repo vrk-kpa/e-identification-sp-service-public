@@ -1,5 +1,5 @@
 # Pull base image
-FROM e-identification-docker-virtual.vrk-artifactory-01.eden.csc.fi/e-identification-base-centos7-shibd
+FROM e-identification-docker-virtual.vrk-artifactory-01.eden.csc.fi/e-identification-base-centos7-shibd_v3
 COPY target/site /site
 
 COPY conf /tmp/conf
@@ -20,6 +20,8 @@ RUN cp /tmp/conf/shibboleth/attribute-map.xml /etc/shibboleth/attribute-map.xml 
     cp /tmp/conf/shibboleth/bindingTemplateCX.html /etc/shibboleth/bindingTemplateCX.html && \
     cp /tmp/conf/shibboleth/bindingTemplateFICountry.html /etc/shibboleth/bindingTemplateFICountry.html && \
     cp /tmp/conf/shibboleth/bindingTemplateEidas.html /etc/shibboleth/bindingTemplateEidas.html && \
+    cp /tmp/conf/shibboleth/bindingTemplateEidasTest.html /etc/shibboleth/bindingTemplateEidasTest.html && \
+    cp /tmp/conf/shibboleth/bindingTemplateEidasTestXX.html /etc/shibboleth/bindingTemplateEidasTestXX.html && \
     cp /tmp/conf/shibboleth/bindingTemplateDE.html /etc/shibboleth/bindingTemplateDE.html && \
     cp /tmp/conf/shibboleth/security-policy.xml /etc/shibboleth/security-policy.xml && \
     cp /tmp/conf/tomcat/sp.xml /opt/tomcat/conf/Catalina/localhost/ && \

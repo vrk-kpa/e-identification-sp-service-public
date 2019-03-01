@@ -30,6 +30,8 @@ import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * Constructs proper URI to be used when serivce provider encounters an authentication error.
@@ -47,7 +49,9 @@ public class UrlService {
     private String successRedirectBase;
     @Value("${eidas.form.url}")
     private String eidasFormUrl;
-
+    @Value("${cancel.redirect}")
+    private String cancelRedirectBase;
+    
     /* These strings define the error redirect URL query parameter that can be
      * used to guide the error page, the value matches the property langId that
      * fetches the correct language variant for the error message
@@ -60,12 +64,25 @@ public class UrlService {
     private String errorParamMessageInvalid;
 
 
-    public URI generateErrorURI() {
+    public URI generateErrorURI(String relayState) {
 
+        
+         MultiValueMap<String, String> parameters =
+            UriComponentsBuilder.fromUriString(relayState).build().getQueryParams();
+         
+         
+        String pid = parameters.get("pid").get(0);
+        String tid = parameters.get("tid").get(0);
+        String tag = parameters.get("tag").get(0);
+        String conversation = parameters.get("conversation").get(0);
         URI redirectURI = null;
         try {
-            redirectURI = new URIBuilder(discoveryPageBaseUrl)
-                    .addParameter("msg", "cancel")
+            redirectURI = new URIBuilder(cancelRedirectBase) 
+                    .addParameter("conversation", conversation)
+                    .addParameter("tid", tid)
+                    .addParameter("pid", pid)
+                    .addParameter("tag", tag)
+                    .addParameter("status", "returnFromIdp")
                     .build();
         } catch (URISyntaxException e) {
             logger.error("Malformed sp error redirect url");

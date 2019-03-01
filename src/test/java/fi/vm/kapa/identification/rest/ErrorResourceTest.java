@@ -42,13 +42,13 @@ public class ErrorResourceTest {
     @Before
     public void init() throws URISyntaxException {
         UrlService urlService = mock(UrlService.class);
-        when(urlService.generateErrorURI()).thenReturn(new URI("http://test.error.fi"));
+        when(urlService.generateErrorURI("")).thenReturn(new URI("http://test.error.fi"));
         resource = new ErrorResource(urlService);
     }
 
     @Test
     public void testGetErrorLocation() {
-        Response response = resource.getErrorLocation();
+        Response response = resource.getErrorLocation("");
         assertNotNull(response);
         assertEquals(Response.Status.FOUND.getStatusCode(), response.getStatus());
         assertEquals("http://test.error.fi", response.getLocation().toString());
