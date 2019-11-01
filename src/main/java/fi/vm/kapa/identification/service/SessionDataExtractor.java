@@ -42,11 +42,12 @@ public class SessionDataExtractor {
      * These values are fetched from shibboleth2.xml and these must be
      * placed in the same order as the enum in Identifier.Types.
      */
-    private static final Identifier.Types[] identifierTypePriority = {SATU, HETU, KID, EIDAS_ID};
+    private static final Identifier.Types[] identifierTypePriority = {SATU, HETU, KID, FPID, EIDAS_ID};
     private Map<Identifier.Types,String> enumToNameMap = ImmutableMap.<Identifier.Types,String>builder()
             .put(SATU, "AJP_satu")
             .put(HETU, "AJP_hetu")
             .put(KID, "AJP_tfiKid")
+            .put(FPID, "AJP_foreignPersonIdentifier")
             .put(EIDAS_ID, "AJP_eidasPersonIdentifier")
             .build();
 
@@ -60,17 +61,12 @@ public class SessionDataExtractor {
 
 
     Identifier.Types getIdentifierType(Map<String,String> sessionData) throws InvalidIdentifierException {
-        if ("urn:oasis:names:tc:SAML:2.0:ac:classes:MobileTwoFactorContract".equals(sessionData.get("AJP_Shib-Authentication-Method"))) {
-            //Set identifierType to HETU if mobile authenticator has been used. Will be removed once mobile cert issuer is available.
-            return HETU;
-        } else {
-            for (Identifier.Types type : identifierTypePriority) {
-                if (StringUtils.isNotBlank(sessionData.get(enumToNameMap.get(type)))) {
-                    return type;
-                }
+        for (Identifier.Types type : identifierTypePriority) {
+            if (StringUtils.isNotBlank(sessionData.get(enumToNameMap.get(type)))) {
+                return type;
             }
-            throw new InvalidIdentifierException();
         }
+        throw new InvalidIdentifierException();
     }
 
 

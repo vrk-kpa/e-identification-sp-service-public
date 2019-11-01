@@ -32,7 +32,14 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.NewCookie;
 
 @Component
 @Path("/sp-error")
@@ -48,8 +55,25 @@ public class ErrorResource {
     }
 
     @GET
-    public Response getErrorLocation(@QueryParam("RelayState") String relayState) {
+    public Response getErrorLocation(@QueryParam("RelayState") String relayState,
+            @Context HttpHeaders headers) {
+        Map<String, Cookie> cookies = headers.getCookies();
+        ArrayList<NewCookie> addCookies = new ArrayList<>();
+        if (cookies != null) {
+            for(Entry<String, Cookie> e : cookies.entrySet()) {   
+                NewCookie cookie = new NewCookie(e.getValue());
+                if (cookie.getName().startsWith("_shibstate_")) {
+                    addCookies.add( new NewCookie(cookie.getName(), cookie.getValue(), cookie.getPath(), cookie.getDomain(), 
+                            cookie.getVersion(), cookie.getComment(), 0, cookie.getExpiry(), 
+                            cookie.isSecure(), cookie.isHttpOnly()));
+                } else {
+                    addCookies.add(new NewCookie(cookie.getName(), cookie.getValue(), cookie.getPath(), cookie.getDomain(), 
+                            cookie.getVersion(), cookie.getComment(), cookie.getMaxAge(), cookie.getExpiry(), 
+                            cookie.isSecure(), cookie.isHttpOnly()));
+                }
+            }
+        }
         URI redirectURI = urlService.generateErrorURI(relayState);
-        return Response.status(Response.Status.FOUND).location(redirectURI).build();
+        return Response.status(Response.Status.FOUND).location(redirectURI).cookie(addCookies.toArray(new NewCookie[0])).build();        
     }
 }

@@ -88,7 +88,6 @@
                 </samlp:AuthnRequest>
             </SessionInitiator>
 
-
             <SessionInitiator type="SAML2" id="LoginFakevetuma2Fi" Location="{{spconf_location_fakevetuma2}}/fi"
                               entityID="{{ spconf_entityid_testidp }}">
                   <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="fakevetuma_fi" Version="2.0"
@@ -186,17 +185,50 @@
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginMobiiliFi" Location="{{spconf_location_mobiili}}/fi"
-                              entityID="{{ spconf_entityid_mobiili }}">
+                              entityID="{{ spconf_entityid_mobiili2 }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili_fi" Version="2.0"
                                     IssueInstant="2012-01-01T00:00:00Z">
                     <samlp:Extensions>
-                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
-                            <lang>fi</lang>
-                        </kapa>
+                        <ftn xmlns="http://ftn.ficora.fi/2017/req_ext">
+                            <lg>fi</lg>
+                         </ftn>
                     </samlp:Extensions>
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextDeclRef>{{spconf_AuthnContextDeclRef_mobiili2}}</saml:AuthnContextDeclRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest> 
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginMobiiliSv" Location="{{spconf_location_mobiili}}/sv"
+                              entityID="{{ spconf_entityid_mobiili2 }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili_sv" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                     <samlp:Extensions>
+                        <ftn xmlns="http://ftn.ficora.fi/2017/req_ext">
+                            <lg>sv</lg>
+                         </ftn>
+                    </samlp:Extensions>                  
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextDeclRef>{{spconf_AuthnContextDeclRef_mobiili2}}</saml:AuthnContextDeclRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest> 
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginMobiiliEn" Location="{{spconf_location_mobiili}}/en"
+                              entityID="{{ spconf_entityid_mobiili2 }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili_en" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <ftn xmlns="http://ftn.ficora.fi/2017/req_ext">
+                            <lg>en</lg>
+                         </ftn>
+                    </samlp:Extensions>           
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextDeclRef>{{spconf_AuthnContextDeclRef_mobiili2}}</saml:AuthnContextDeclRef>
+                    </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest>
             </SessionInitiator>
-            
+
             <SessionInitiator type="SAML2" id="LoginMobiili2Fi" Location="{{spconf_location_mobiili2}}/fi"
                               entityID="{{ spconf_entityid_mobiili2 }}"
                               template="bindingTemplateFIT.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
@@ -206,18 +238,6 @@
                         <saml:AuthnContextDeclRef>{{spconf_AuthnContextDeclRef_mobiili2}}</saml:AuthnContextDeclRef>
                     </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest> 
-            </SessionInitiator>
-            
-            <SessionInitiator type="SAML2" id="LoginMobiiliSv" Location="{{spconf_location_mobiili}}/sv"
-                              entityID="{{ spconf_entityid_mobiili }}">
-                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili_sv" Version="2.0"
-                                    IssueInstant="2012-01-01T00:00:00Z">
-                    <samlp:Extensions>
-                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
-                            <lang>sv</lang>
-                        </kapa>
-                    </samlp:Extensions>
-                </samlp:AuthnRequest>
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginMobiili2Sv" Location="{{spconf_location_mobiili2}}/sv"
@@ -229,18 +249,6 @@
                         <saml:AuthnContextDeclRef>{{spconf_AuthnContextDeclRef_mobiili2}}</saml:AuthnContextDeclRef>
                     </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest> 
-            </SessionInitiator>
-            
-            <SessionInitiator type="SAML2" id="LoginMobiiliEn" Location="{{spconf_location_mobiili}}/en"
-                              entityID="{{ spconf_entityid_mobiili }}">
-                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="mobiili_en" Version="2.0"
-                                    IssueInstant="2012-01-01T00:00:00Z">
-                    <samlp:Extensions>
-                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
-                            <lang>en</lang>
-                        </kapa>
-                    </samlp:Extensions>
-                </samlp:AuthnRequest>
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginMobiili2En" Location="{{spconf_location_mobiili2}}/en"
@@ -299,6 +307,54 @@
                 </samlp:AuthnRequest>
             </SessionInitiator>
 
+            <SessionInitiator type="SAML2" id="LoginNordeaFiOIDC" Location="{{ spconf_location_nordea_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="nordea_fi_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_nordea }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginNordeaSvOIDC" Location="{{ spconf_location_nordea_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="nordea_sv_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv-FI</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_nordea }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginNordeaEnOIDC" Location="{{ spconf_location_nordea_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="nordea_en_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_nordea }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
             <SessionInitiator type="SAML2" id="LoginOsuuspankkiFi" Location="{{ spconf_location_osuuspankki }}/fi"
                               entityID="{{ spconf_integrationidp_entityid }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="osuuspankki_fi" Version="2.0"
@@ -348,8 +404,7 @@
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginOsuuspankki2Fi" Location="{{ spconf_location_osuuspankki2 }}/fi"
-                              entityID="{{ spconf_entityid_osuuspankki2 }}"
-                              template="bindingTemplateFIT.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
+                              entityID="{{ spconf_entityid_osuuspankki2 }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="osuuspankki2_fi" Version="2.0"
                                     IssueInstant="2012-01-01T00:00:00Z">
                     <samlp:Extensions>
@@ -364,8 +419,7 @@
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginOsuuspankki2Sv" Location="{{ spconf_location_osuuspankki2 }}/sv"
-                              entityID="{{ spconf_entityid_osuuspankki2 }}"
-                              template="bindingTemplateSVT.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
+                              entityID="{{ spconf_entityid_osuuspankki2 }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="osuuspankki2_sv" Version="2.0"
                                     IssueInstant="2012-01-01T00:00:00Z">
                     <samlp:Extensions>
@@ -380,8 +434,7 @@
             </SessionInitiator>
 
             <SessionInitiator type="SAML2" id="LoginOsuuspankki2En" Location="{{ spconf_location_osuuspankki2 }}/en"
-                              entityID="{{ spconf_entityid_osuuspankki2 }}"
-                              template="bindingTemplateENT.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
+                              entityID="{{ spconf_entityid_osuuspankki2 }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="osuuspankki2_en" Version="2.0"
                                     IssueInstant="2012-01-01T00:00:00Z">
                     <samlp:Extensions>
@@ -443,6 +496,54 @@
                 </samlp:AuthnRequest>
             </SessionInitiator>
 
+            <SessionInitiator type="SAML2" id="LoginAlandsbankenFiOIDC" Location="{{ spconf_location_alands_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="alandsbanken_fi_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_alands }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginAlandsbankenSvOIDC" Location="{{ spconf_location_alands_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="alandsbanken_sv_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_alands }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginAlandsbankenEnOIDC" Location="{{ spconf_location_alands_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="alandsbanken_en_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_alands }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
             <SessionInitiator type="SAML2" id="LoginHandelsbankenFi" Location="{{ spconf_location_handelsbanken }}/fi"
                               entityID="{{ spconf_integrationidp_entityid }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="handelsbanken_fi"
@@ -491,6 +592,54 @@
                 </samlp:AuthnRequest>
             </SessionInitiator>
 
+            <SessionInitiator type="SAML2" id="LoginHandelsFiOIDC" Location="{{ spconf_location_handelsbanken_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="handelsbanken_fi_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_handelsbanken }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginHandelsSvOIDC" Location="{{ spconf_location_handelsbanken_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="handelsbanken_sv_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_handelsbanken }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginHandelsEnOIDC" Location="{{ spconf_location_handelsbanken_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="handelsbanken_en_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_handelsbanken }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
             <SessionInitiator type="SAML2" id="LoginS-PankkiFi" Location="{{ spconf_location_spankki }}/fi"
                               entityID="{{ spconf_integrationidp_entityid }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="spankki_fi" Version="2.0"
@@ -532,6 +681,189 @@
                     </samlp:Extensions>
                     <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
                         <saml:AuthnContextDeclRef>{{ spconf_AuthnContextDeclRef_spankki }}</saml:AuthnContextDeclRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginS-PankkiFiOIDC" Location="{{ spconf_location_spankki_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="spankki_fi_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_spankki }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginS-PankkiSvOIDC" Location="{{ spconf_location_spankki_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="spankki_sv_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_spankki }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginS-PankkiEnOIDC" Location="{{ spconf_location_spankki_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="spankki_en_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_spankki }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginDanskeFiOIDC" Location="{{ spconf_location_danske_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="danske_fi_oidc" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_danske }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginDanskeSvOIDC" Location="{{ spconf_location_danske_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="danske_sv_oidc" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_danske }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginDanskeEnOIDC" Location="{{ spconf_location_danske_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="danske_en_oidc" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_danske }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginHAKAFiOIDC" Location="{{ spconf_location_haka_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="haka_fi_oidc" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_haka }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginHAKASvOIDC" Location="{{ spconf_location_haka_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="haka_sv_oidc" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_haka }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginHAKAEnOIDC" Location="{{ spconf_location_haka_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="haka_en_oidc" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_haka }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginAktiaFiOIDC" Location="{{ spconf_location_aktia_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="aktia_fi_oidc" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_aktia }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginAktiaSvOIDC" Location="{{ spconf_location_aktia_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="aktia_sv_oidc" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_aktia }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginAktiaEnOIDC" Location="{{ spconf_location_aktia_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="aktia_en_oidc" Version="2.0"
+                                    IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_aktia }}</saml:AuthnContextClassRef>
                     </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest>
             </SessionInitiator>
@@ -626,6 +958,54 @@
                 </samlp:AuthnRequest>
             </SessionInitiator>
 
+           <SessionInitiator type="SAML2" id="LoginPopFiOIDC" Location="{{ spconf_location_pop_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="pop_fi_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_pop }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginPopSvOIDC" Location="{{ spconf_location_pop_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="pop_sv_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_pop }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginPopEnOIDC" Location="{{ spconf_location_pop_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="pop_en_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_pop }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
             <SessionInitiator type="SAML2" id="LoginSaastopankkiFi" Location="{{ spconf_location_saastopankki }}/fi"
                               entityID="{{ spconf_integrationidp_entityid }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="saastopankki_fi"
@@ -670,6 +1050,54 @@
                     <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
                         <saml:AuthnContextDeclRef>{{ spconf_AuthnContextDeclRef_saastopankki }}
                         </saml:AuthnContextDeclRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginSaastopankkiFiOIDC" Location="{{ spconf_location_saastopankki_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="saastopankki_fi_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_saastopankki }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginSaastopankkiSvOIDC" Location="{{ spconf_location_saastopankki_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="saastopankki_sv_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_saastopankki }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginSaastopankkiEnOIDC" Location="{{ spconf_location_saastopankki_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="saastopankki_en_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_saastopankki }}
+                        </saml:AuthnContextClassRef>
                     </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest>
             </SessionInitiator>
@@ -725,6 +1153,54 @@
                 </samlp:AuthnRequest>
             </SessionInitiator>
 
+            <SessionInitiator type="SAML2" id="LoginOmasaastopankkiFiOIDC" Location="{{ spconf_location_omasaastopankki_oidc }}/fi"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="omasaastopankki_fi_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_omasaastopankki }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginOmasaastopankkiSvOIDC" Location="{{ spconf_location_omasaastopankki_oidc }}/sv"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="omasaastopankki_sv_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_omasaastopankki }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginOmasaastopankkiEnOIDC" Location="{{ spconf_location_omasaastopankki_oidc }}/en"
+                              entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="omasaastopankki_en_oidc"
+                                    Version="2.0" IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext Comparison="exact" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_omasaastopankki }}
+                        </saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
             <SessionInitiator type="SAML2" id="LoginDanskebankFi" Location="{{ spconf_location_danske_bank }}/fi"
                               entityID="{{ spconf_integrationidp_entityid }}">
                 <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="danske_bank_fi" Version="2.0"
@@ -772,7 +1248,7 @@
                     </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest>
             </SessionInitiator>
-            
+
             <SessionInitiator Location="{{ spconf_location_eidas2 }}/fi" NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:transient" entityID="{{ spconf_entityid_eidas2 }}" forceAuthn="true" template="bindingTemplateFICountry.html" id="LoginEIDAS2Fi" type="SAML2">
             <samlp:AuthnRequest ID="LoginEIDAS2FIp" IssueInstant="2012-01-01T00:00:00Z" ProviderName="DEMO-SP" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
               <samlp:Extensions>
@@ -789,6 +1265,7 @@
               </samlp:RequestedAuthnContext>
             </samlp:AuthnRequest>
             </SessionInitiator>
+
             <SessionInitiator Location="{{ spconf_location_eidas2 }}/sv" NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:transient" entityID="{{ spconf_entityid_eidas2 }}" forceAuthn="true" template="bindingTemplateFICountry.html" id="LoginEIDAS2Sv" type="SAML2">
                 <samlp:AuthnRequest ID="LoginEIDAS2SVp" IssueInstant="2012-01-01T00:00:00Z" ProviderName="DEMO-SP" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
                     <samlp:Extensions>
@@ -805,6 +1282,7 @@
                     </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest>
             </SessionInitiator>
+
             <SessionInitiator Location="{{ spconf_location_eidas2 }}/en" NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:transient" entityID="{{ spconf_entityid_eidas2 }}" forceAuthn="true" template="bindingTemplateFICountry.html" id="LoginEIDAS2En" type="SAML2">
                 <samlp:AuthnRequest ID="LoginEIDAS2ENp" IssueInstant="2012-01-01T00:00:00Z" ProviderName="DEMO-SP" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
                     <samlp:Extensions>
@@ -821,6 +1299,7 @@
                     </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest>
             </SessionInitiator>
+
             <SessionInitiator Location="{{ spconf_location_eidas_low }}" entityID="{{ spconf_entityid_eidas2 }}" template="bindingTemplateEidas.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" forceAuthn="true" NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:transient" id="LoginEIDAS1Fi" type="SAML2">
              <samlp:AuthnRequest ID="LoginEIDASlow" IssueInstant="2012-01-01T00:00:00Z" ProviderName="{{ spconf_provider_name }}" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
               <samlp:Extensions>
@@ -837,6 +1316,7 @@
                </samlp:RequestedAuthnContext>
              </samlp:AuthnRequest>
            </SessionInitiator>
+
           <SessionInitiator Location="{{ spconf_location_eidas_substantial }}" entityID="{{ spconf_entityid_eidas2 }}" template="bindingTemplateEidas.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" forceAuthn="true" NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:transient" id="LoginEIDAS1Fi" type="SAML2">
              <samlp:AuthnRequest ID="LoginEIDASsubstabtial" IssueInstant="2012-01-01T00:00:00Z" ProviderName="{{ spconf_provider_name }}" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
               <samlp:Extensions>
@@ -853,6 +1333,7 @@
                </samlp:RequestedAuthnContext>
              </samlp:AuthnRequest>
            </SessionInitiator>
+
           <SessionInitiator Location="{{ spconf_location_eidas_high }}" entityID="{{ spconf_entityid_eidas2 }}" template="bindingTemplateEidas.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" forceAuthn="true" NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:transient" id="LoginEIDAS1Fi" type="SAML2">
              <samlp:AuthnRequest ID="LoginEIDAShigh" IssueInstant="2012-01-01T00:00:00Z" ProviderName="{{ spconf_provider_name }}" Version="2.0" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
               <samlp:Extensions>
@@ -869,6 +1350,7 @@
                </samlp:RequestedAuthnContext>
              </samlp:AuthnRequest>
            </SessionInitiator>
+
            <SessionInitiator Location="{{ spconf_location_eidas_de }}" entityID="{{ spconf_entityid_mw_de }}" template="bindingTemplateDE.html" outgoingBindings="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" forceAuthn="true" isPassive="false" NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:transient" id="LoginEIDAS2DEi" type="SAML2">
              <saml2p:AuthnRequest Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified" ForceAuthn="true" ID="LoginEIDASDEhigh" IsPassive="false" IssueInstant="2012-01-01T00:00:00Z" ProviderName="{{ spconf_provider_name }}" Version="2.0" xmlns:eidas="http://eidas.europa.eu/saml-extensions" xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
                <saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity"
@@ -905,6 +1387,34 @@
                     </samlp:RequestedAuthnContext>
                 </samlp:AuthnRequest>
             </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginTestFFIfi" Location="/LoginTestFFI/fi" entityID="{{ spconf_entityid_testidp }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="testffi_fi" Version="2.0"
+                                  IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.7</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginTestFFIsv" Location="/LoginTestFFI/sv" entityID="{{ spconf_entityid_testidp }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="testffi_sv" Version="2.0"
+                                  IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.7</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginTestFFIen" Location="/LoginTestFFI/en" entityID="{{ spconf_entityid_testidp }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="testffi_en" Version="2.0"
+                                  IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>urn:oid:1.2.246.517.3002.110.7</saml:AuthnContextClassRef>
+                        </samlp:RequestedAuthnContext>
+                    </samlp:AuthnRequest>
+            </SessionInitiator>
+
         </Sessions>
 
         <!-- Error pages to display to yourself if something goes horribly wrong. -->

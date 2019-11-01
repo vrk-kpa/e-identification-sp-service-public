@@ -72,21 +72,19 @@ public class SessionDataExtractorTest {
     }
 
     @Test
-    public void getIdentifierTypeReturnsHetuForMobileIdpWhenHetuAndSatuIdentifierFoundInSessionData() throws Exception {
-        SessionDataExtractor extractor = new SessionDataExtractor();
-        HashMap<String,String> sessionData = new HashMap<>();
-        sessionData.put("AJP_hetu", "TEST_HETU");
-        sessionData.put("AJP_satu", "TEST_SATU");
-        sessionData.put("AJP_Shib-Authentication-Method", "urn:oasis:names:tc:SAML:2.0:ac:classes:MobileTwoFactorContract");
-        assertEquals(HETU, extractor.getIdentifierType(sessionData));
-    }
-
-    @Test
     public void getIdentifierTypeReturnsSatuWhenSatuIdentifierFoundInSessionData() throws Exception {
         SessionDataExtractor extractor = new SessionDataExtractor();
         HashMap<String,String> sessionData = new HashMap<>();
         sessionData.put("AJP_satu", "TEST_SATU");
         assertEquals(SATU, extractor.getIdentifierType(sessionData));
+    }
+    
+    @Test
+    public void getIdentifierTypeReturnsFPIDWhenForeignIdentifierFoundInSessionData() throws Exception {
+        SessionDataExtractor extractor = new SessionDataExtractor();
+        HashMap<String,String> sessionData = new HashMap<>();
+        sessionData.put("AJP_foreignPersonIdentifier", "TEST_FPI");
+        assertEquals(FPID, extractor.getIdentifierType(sessionData));
     }
 
     @Test
@@ -121,6 +119,7 @@ public class SessionDataExtractorTest {
         headers.putSingle("AJP_givenName", "TEST_GIVEN_NAME");
         headers.putSingle("AJP_sn", "TEST_SURNAME");
         headers.putSingle("AJP_authenticationProvider", "TEST_AUTH_PROVIDER");
+        headers.putSingle("AJP_foreignPersonIdentifier", "TEST_FOREIGN_PID");
         headers.putSingle("AJP_tfiKid", "TEST_KID");
         headers.putSingle("AJP_tfiPersonName", "TEST_TFI_PERSON_NAME");
         headers.putSingle("AJP_tfiVersion", "TEST_TFI_VERSION");
@@ -131,6 +130,7 @@ public class SessionDataExtractorTest {
         headers.putSingle("AJP_tfiIdType", "TEST_TFI_ID_TYPE");
         headers.putSingle("AJP_mobileNumber", "TEST_MOBILE_NUMBER");
         headers.putSingle("AJP_issuerCN", "TEST_ISSUER_CN");
+        headers.putSingle("AJP_firstNames", "TEST_FIRSTNAMES");
         SessionDataExtractor extractor = new SessionDataExtractor();
         Map<String,String> sessionData = extractor.extractRelevantHeaders(headers);
         assertThat(sessionData.get("AJP_uid"), is("TEST_UID"));
@@ -142,6 +142,7 @@ public class SessionDataExtractorTest {
         assertThat(sessionData.get("AJP_givenName"), is("TEST_GIVEN_NAME"));
         assertThat(sessionData.get("AJP_sn"), is("TEST_SURNAME"));
         assertThat(sessionData.get("AJP_authenticationProvider"), is("TEST_AUTH_PROVIDER"));
+        assertThat(sessionData.get("AJP_foreignPersonIdentifier"), is("TEST_FOREIGN_PID"));
         assertThat(sessionData.get("AJP_tfiKid"), is("TEST_KID"));
         assertThat(sessionData.get("AJP_tfiPersonName"), is("TEST_TFI_PERSON_NAME"));
         assertThat(sessionData.get("AJP_tfiVersion"), is("TEST_TFI_VERSION"));
@@ -152,6 +153,7 @@ public class SessionDataExtractorTest {
         assertThat(sessionData.get("AJP_tfiIdType"), is("TEST_TFI_ID_TYPE"));
         assertThat(sessionData.get("AJP_mobileNumber"), is("TEST_MOBILE_NUMBER"));
         assertThat(sessionData.get("AJP_issuerCN"), is("TEST_ISSUER_CN"));
+        assertThat(sessionData.get("AJP_firstNames"), is("TEST_FIRSTNAMES"));
     }
 
     @Test

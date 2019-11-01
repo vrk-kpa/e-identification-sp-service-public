@@ -68,12 +68,6 @@
                      <basic:Rule xsi:type="basic:AttributeIssuerString" value="{{ spconf_entityid_mobiili2 }}" />
             </afp:PermitValueRule>
         </afp:AttributeRule>
-        
-        <afp:AttributeRule attributeID="sn">
-            <afp:PermitValueRule xsi:type="basic:NOT">
-                     <basic:Rule xsi:type="basic:AttributeIssuerString" value="{{ spconf_entityid_mobiili2 }}" />
-            </afp:PermitValueRule>
-        </afp:AttributeRule>
 
         <!-- Catch-all that passes everything else through unmolested. -->
         <afp:AttributeRule attributeID="*" permitAny="true"/>
