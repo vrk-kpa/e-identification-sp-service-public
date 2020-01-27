@@ -20,7 +20,6 @@ RUN cp /tmp/conf/shibboleth/attribute-map.xml /etc/shibboleth/attribute-map.xml 
     cp /tmp/conf/shibboleth/bindingTemplateCX.html /etc/shibboleth/bindingTemplateCX.html && \
     cp /tmp/conf/shibboleth/bindingTemplateFICountry.html /etc/shibboleth/bindingTemplateFICountry.html && \
     cp /tmp/conf/shibboleth/bindingTemplateEidas.html /etc/shibboleth/bindingTemplateEidas.html && \
-    cp /tmp/conf/shibboleth/bindingTemplateEidasTest.html /etc/shibboleth/bindingTemplateEidasTest.html && \
     cp /tmp/conf/shibboleth/bindingTemplateEidasTestXX.html /etc/shibboleth/bindingTemplateEidasTestXX.html && \
     cp /tmp/conf/shibboleth/bindingTemplateDE.html /etc/shibboleth/bindingTemplateDE.html && \
     cp /tmp/conf/shibboleth/security-policy.xml /etc/shibboleth/security-policy.xml && \
