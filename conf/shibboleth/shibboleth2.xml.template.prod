@@ -1056,6 +1056,47 @@
               </saml2p:AuthnRequest>
             </SessionInitiator>
             
+            <SessionInitiator type="SAML2" id="LoginFinnishAuthenticatorfi" Location="{{ spconf_location_finnish_authenticator }}/fi" entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="finnish_authenticator_fi" Version="2.0"
+                                  IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>fi</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_finnish_authenticator }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginFinnishAuthenticatorsv" Location="{{ spconf_location_finnish_authenticator }}/sv" entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="finnish_authenticator_sv" Version="2.0"
+                                  IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>sv</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_finnish_authenticator }}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
+
+            <SessionInitiator type="SAML2" id="LoginFinnishAuthenticatoren" Location="{{ spconf_location_finnish_authenticator }}/en" entityID="{{ spconf_oidc_adapter_entityid }}">
+                <samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="finnish_authenticator_en" Version="2.0"
+                                  IssueInstant="2012-01-01T00:00:00Z">
+                    <samlp:Extensions>
+                        <kapa xmlns="urn:kapa:SAML:2.0:extensions">
+                            <lang>en</lang>
+                        </kapa>
+                    </samlp:Extensions>
+                    <samlp:RequestedAuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                        <saml:AuthnContextClassRef>{{ spconf_AuthnContextClassRef_finnish_authenticator}}</saml:AuthnContextClassRef>
+                    </samlp:RequestedAuthnContext>
+                </samlp:AuthnRequest>
+            </SessionInitiator>
     </Sessions>
 
         <!-- Error pages to display to yourself if something goes horribly wrong. -->
