@@ -17,7 +17,8 @@
             <!-- SAML and local-only logout. -->
             <!-- https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPServiceLogout -->
             <Logout>SAML2 Local</Logout>
-
+            <!-- Session diagnostic service. -->
+            <Handler type="Session" Location="/Success" showAttributeValues="false"/>
             <!-- Status reporting service. -->
             <Handler type="Status" Location="/Status" acl="{{ spconf_status_acl }}"/>
 
